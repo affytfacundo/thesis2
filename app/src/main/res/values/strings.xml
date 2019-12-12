@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="areacode">+63</string>
+
+    <string-array name="violations">
+        <item>Overspeeding</item>
+        <item>Illegal Parking</item>
+        <item>Obstruction</item>
+        <item>Drinking and Driving</item>
+        <item>Beating Red Light</item>
+    </string-array>
+</resources>
