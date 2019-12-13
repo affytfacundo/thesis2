@@ -17,6 +17,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.nexmo.client.NexmoClient;
+import com.nexmo.client.sms.SmsSubmissionResponse;
+import com.nexmo.client.sms.SmsSubmissionResponseMessage;
+import com.nexmo.client.sms.messages.TextMessage;
 
 import java.lang.reflect.Member;
 import java.text.SimpleDateFormat;
@@ -51,20 +55,14 @@ public class DriverSummary extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-      /*  reff = FirebaseDatabase.getInstance().getReference().child("violators");
-        reff.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists())
-                    maxid=(dataSnapshot.getChildrenCount());
-            }
+        //SMS
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });*/
 
+
+
+
+        //SMS
 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM-dd-yyyy hh:mm:ss");
@@ -109,6 +107,20 @@ public class DriverSummary extends AppCompatActivity {
     }
     public void upload(View v){
 
+        NexmoClient client = new NexmoClient.Builder()
+                .apiKey("e25f2504")
+                .apiSecret("c4rHgoelnf27mprX")
+                .build();
+
+        String messageText = "Hello from Nexmo charaaaan";
+        TextMessage message = new TextMessage("Nexmo", "639369590417", messageText);
+
+        SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
+
+        for (SmsSubmissionResponseMessage responseMessage : response.getMessages()) {
+            System.out.println(responseMessage);
+        }
+
         Map<String, Object> note = new HashMap<>();
         note.put(KEY_NAME, Stringname);
         note.put(KEY_GENDER, Stringgender);
@@ -136,6 +148,8 @@ public class DriverSummary extends AppCompatActivity {
 
                     }
                 });
+
+
     }
 
 }

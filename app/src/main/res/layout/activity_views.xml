@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/signOutBtn"
-        android:layout_width="402dp"
-        android:layout_height="79dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:text="SIGN OUT"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,8 +17,8 @@
 
     <ImageButton
         android:id="@+id/buttonDriver"
-        android:layout_width="453dp"
-        android:layout_height="341dp"
+        android:layout_width="389dp"
+        android:layout_height="398dp"
         android:layout_marginBottom="40dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/buttonPed"
@@ -31,8 +31,8 @@
 
     <ImageButton
         android:id="@+id/buttonPed"
-        android:layout_width="443dp"
-        android:layout_height="332dp"
+        android:layout_width="617dp"
+        android:layout_height="386dp"
         android:layout_marginBottom="64dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/signOutBtn"

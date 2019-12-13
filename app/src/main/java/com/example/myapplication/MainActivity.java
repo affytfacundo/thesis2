@@ -175,5 +175,6 @@ public class MainActivity extends AppCompatActivity {
     private void openActivity2(){
         Intent intent = new Intent(MainActivity.this, Views.class);
         startActivity(intent);
+        finish();
     }
 }
