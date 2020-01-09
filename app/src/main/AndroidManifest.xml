@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="ocr"/>
+
         <activity android:name=".ticket"></activity>
         <activity android:name=".PedestrianSummary" />
         <activity android:name=".PedestrianDetails" />
