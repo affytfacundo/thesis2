@@ -9,4 +9,8 @@
         <item>Drinking and Driving</item>
         <item>Beating Red Light</item>
     </string-array>
+
+    <string name="action_gallery">Gallery</string>
+    <string name="permission_request">This app need to access files on your device.</string>
+    <string name="no_text">No text found</string>
 </resources>

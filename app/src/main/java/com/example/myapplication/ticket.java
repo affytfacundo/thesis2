@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -20,7 +21,11 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
+import java.io.File;
 import java.util.List;
+
+import static com.example.myapplication.BaseActivity.SELECT_PHOTO;
+import static com.example.myapplication.BaseActivity.WRITE_STORAGE;
 
 public class ticket extends AppCompatActivity {
 
@@ -29,6 +34,7 @@ public class ticket extends AppCompatActivity {
     private TextView textView;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     Bitmap imageBitmap;
+    File photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,11 +72,37 @@ public class ticket extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        /*if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
-            imageView.setImageBitmap(imageBitmap);
+            imageView.setImageBitmap(imageBitmap);*/
+
+        if(requestCode == RESULT_OK){
+            switch (requestCode){
+                case WRITE_STORAGE:
+                    checkPermission(requestCode);
+                    break;
+
+                case SELECT_PHOTO:
+                    Uri dataUri = data.getData();
+                    String path = MyHelper.getPath(ticket.this, dataUri);
+
+                    if (path == null){
+                        imageBitmap = MyHelper.resizePhoto(photo, ticket.this, dataUri, imageView);
+                    }else {
+                        imageBitmap = MyHelper.resizePhoto(photo, path, imageView);
+                    }
+                    if(imageBitmap != null) {
+                        textView.setText(null);
+                        imageView.setImageBitmap(imageBitmap);
+                    }
+                    break;
+            }
         }
+
+        }
+
+    private void checkPermission(int requestCode) {
     }
 
     private void detectTextFromImage() {
