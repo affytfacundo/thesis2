@@ -17,10 +17,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.nexmo.client.NexmoClient;
-import com.nexmo.client.sms.SmsSubmissionResponse;
-import com.nexmo.client.sms.SmsSubmissionResponseMessage;
-import com.nexmo.client.sms.messages.TextMessage;
 
 import java.lang.reflect.Member;
 import java.text.SimpleDateFormat;
@@ -107,7 +103,7 @@ public class DriverSummary extends AppCompatActivity {
     }
     public void upload(View v){
 
-        NexmoClient client = new NexmoClient.Builder()
+       /* NexmoClient client = new NexmoClient.Builder()
                 .apiKey("e25f2504")
                 .apiSecret("c4rHgoelnf27mprX")
                 .build();
@@ -119,7 +115,7 @@ public class DriverSummary extends AppCompatActivity {
 
         for (SmsSubmissionResponseMessage responseMessage : response.getMessages()) {
             System.out.println(responseMessage);
-        }
+        }*/
 
         Map<String, Object> note = new HashMap<>();
         note.put(KEY_NAME, Stringname);

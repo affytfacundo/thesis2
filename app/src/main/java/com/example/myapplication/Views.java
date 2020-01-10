@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Views extends AppCompatActivity {
 
-    Button signout;
+    Button signout, ocrscanner;
     ImageButton driver, pedestrian;
 
 
@@ -24,6 +24,7 @@ public class Views extends AppCompatActivity {
         driver = findViewById(R.id.buttonDriver);
         pedestrian = findViewById(R.id.buttonPed);
         signout = findViewById(R.id.signOutBtn);
+        ocrscanner = findViewById(R.id.tryOCR);
 
         driver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +47,12 @@ public class Views extends AppCompatActivity {
             }
         });
 
+        ocrscanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goScanner();
+            }
+        });
 
 
     }
@@ -66,5 +73,10 @@ public class Views extends AppCompatActivity {
         intent3.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent3);
         //try
+    }
+
+    private void goScanner(){
+        Intent intent4 = new Intent(Views.this, ticket.class);
+        startActivity(intent4);
     }
 }
