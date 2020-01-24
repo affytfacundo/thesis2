@@ -126,7 +126,7 @@ public class DriverSummary extends AppCompatActivity {
 
 
 
-        db.collection("violators").document(    ).set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("drivers").document(    ).set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(DriverSummary.this, "Uploaded", Toast.LENGTH_SHORT).show();
