@@ -22,19 +22,22 @@ import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import static com.example.myapplication.BaseActivity.SELECT_PHOTO;
 import static com.example.myapplication.BaseActivity.WRITE_STORAGE;
 
-public class ticket extends AppCompatActivity {
+public class ticket extends BaseActivity {
 
     private Button captureImageBtn, detectTextBtn;
     private ImageView imageView;
     private TextView textView;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     Bitmap imageBitmap;
-    File photo;
+    File photoFile;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +75,14 @@ public class ticket extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
-            imageView.setImageBitmap(imageBitmap);*/
+            imageView.setImageBitmap(imageBitmap);
 
-        if(requestCode == RESULT_OK){
+
+            //Get full image instead of thumbnail
+        /*if(requestCode == RESULT_OK){
             switch (requestCode){
                 case WRITE_STORAGE:
                     checkPermission(requestCode);
@@ -98,47 +103,50 @@ public class ticket extends AppCompatActivity {
                     }
                     break;
             }
-        }
-
-        }
-
-    private void checkPermission(int requestCode) {
-    }
-
-    private void detectTextFromImage() {
-        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(imageBitmap);
-        FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
-        detector.processImage(firebaseVisionImage).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
-            @Override
-            public void onSuccess(FirebaseVisionText texts) {
-                processText(texts);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
-        });
-
-    }
-
-    private void processText(FirebaseVisionText text){
-        /*List<FirebaseVisionText.TextBlock> blocks = text.getTextBlocks();
-        if(blocks.size() == 0){
-            Toast.makeText(ticket.this, "No text", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        for(FirebaseVisionText.TextBlock block : text.getTextBlocks()){
-            String txt = block.getText();
-            textView.setText(txt);
         }*/
-        textView.setText(null);
+        }
+    }
+
+    /*private void checkPermission(int requestCode) {
+    }*/
+
+        private void detectTextFromImage () {
+            FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(imageBitmap);
+            FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
+            detector.processImage(firebaseVisionImage).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+                @Override
+                public void onSuccess(FirebaseVisionText texts) {
+                    processText(texts);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });
+
+        }
+
+        private void processText (FirebaseVisionText text){
+            List<FirebaseVisionText.TextBlock> blocks = text.getTextBlocks();
+            if (blocks.size() == 0) {
+                Toast.makeText(ticket.this, "No text", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            for (FirebaseVisionText.TextBlock block : text.getTextBlocks()) {
+                String txt = block.getText();
+                textView.setText(txt);
+            }
+
+
+            //2nd
+        /*textView.setText(null);
         if(text.getTextBlocks().size() == 0){
             Toast.makeText(ticket.this, "No text", Toast.LENGTH_SHORT).show();
             return;
         }
         for(FirebaseVisionText.TextBlock block : text.getTextBlocks()){
-            textView.append(block.getText());
+            textView.append(block.getText());*/
         }
 
     }
@@ -146,4 +154,3 @@ public class ticket extends AppCompatActivity {
 
 
 
-}

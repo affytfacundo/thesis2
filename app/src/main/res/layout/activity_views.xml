@@ -30,8 +30,8 @@
 
     <ImageButton
         android:id="@+id/buttonDriver"
-        android:layout_width="389dp"
-        android:layout_height="398dp"
+        android:layout_width="513dp"
+        android:layout_height="440dp"
         android:layout_marginBottom="40dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/buttonPed"

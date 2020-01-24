@@ -33,10 +33,10 @@ public class DriverSummary extends AppCompatActivity {
     private static final String KEY_VIOLATIONS = "Violations";
     private static final String KEY_LATITUDE = "Latitude";
     private static final String KEY_LONGITUDE = "Longitude";
-    private static final String KEY_DATETIME = "Date&Time";
+    private static final String KEY_CONTROL = "Control Number";
 
-    TextView name, gender, license, address, longi, lati, date, violations, timedate;
-    String Stringname, Stringgender, Stringlicense, Stringaddress, Stringlongi, Stringlati, Stringdate, Stringviolations;
+    TextView name, gender, license, address, longi, lati, control, violations, timedate;
+    String Stringname, Stringgender, Stringlicense, Stringaddress, Stringlongi, Stringlati, Stringcontrol, Stringviolations;
    /* long maxid=0;
     DatabaseReference reff;
     Member member;*/
@@ -54,18 +54,13 @@ public class DriverSummary extends AppCompatActivity {
         //SMS
 
 
-
-
-
-
         //SMS
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM-dd-yyyy hh:mm:ss");
-        String datetime = simpleDateFormat.format(calendar.getTime());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
+        String controlNumber = simpleDateFormat.format(calendar.getTime());
 
-
-
+    //    controlNumber = Integer.parseInt(datetime);
 
 
 
@@ -75,7 +70,7 @@ public class DriverSummary extends AppCompatActivity {
         address = findViewById(R.id.addressSum);
         longi = findViewById(R.id.longSum);
         lati = findViewById(R.id.latSum);
-        date = findViewById(R.id.datetimeSum);
+        control = findViewById(R.id.datetimeSum);
         violations = findViewById(R.id.violationSum);
 
 
@@ -95,8 +90,8 @@ public class DriverSummary extends AppCompatActivity {
         longi.setText(Stringlongi);
         Stringviolations=getIntent().getExtras().getString("Violations");
         violations.setText(Stringviolations);
-        date.setText(datetime);
-        Stringdate = date.getText().toString();
+        control.setText(controlNumber);
+        Stringcontrol = control.getText().toString();
 
 
 
@@ -125,7 +120,7 @@ public class DriverSummary extends AppCompatActivity {
         note.put(KEY_VIOLATIONS, Stringviolations);
         note.put(KEY_LATITUDE, Stringlati);
         note.put(KEY_LONGITUDE, Stringlongi);
-        note.put(KEY_DATETIME, Stringdate);
+        note.put(KEY_CONTROL, Stringcontrol);
 
        // reff.child(String.valueOf(maxid+1)).setValue(note);
 
