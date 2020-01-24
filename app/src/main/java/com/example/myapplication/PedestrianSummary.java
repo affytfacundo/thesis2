@@ -31,10 +31,10 @@ public class PedestrianSummary extends AppCompatActivity {
     private static final String KEY_VIOLATIONS = "Violations";
     private static final String KEY_LATITUDE = "Latitude";
     private static final String KEY_LONGITUDE = "Longitude";
-    private static final String KEY_DATETIME = "Date&Time";
+    private static final String KEY_CONTROL = "Control Number";
 
-    TextView name, gender, address, longi, lati, date, violations, timedate;
-    String Stringname, Stringgender, Stringaddress, Stringlongi, Stringlati, Stringdate, Stringviolations;
+    TextView name, gender, address, longi, lati, control, violations, timedate;
+    String Stringname, Stringgender, Stringaddress, Stringlongi, Stringlati, Stringcontrol, Stringviolations;
     /*long maxid=0;
     DatabaseReference reff;*/
 
@@ -64,15 +64,15 @@ public class PedestrianSummary extends AppCompatActivity {
 
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM-dd-yyyy hh:mm:ss");
-        String datetime = simpleDateFormat.format(calendar.getTime());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
+        String controlNumber = simpleDateFormat.format(calendar.getTime());
 
         name = findViewById(R.id.nameSum);
         gender = findViewById(R.id.genderSum);
         address = findViewById(R.id.addressSum);
         longi = findViewById(R.id.longSum);
         lati = findViewById(R.id.latSum);
-        date = findViewById(R.id.datetimeSum);
+        control = findViewById(R.id.datetimeSum);
         violations = findViewById(R.id.violationSum);
 
         Stringname = getIntent().getExtras().getString("Name");
@@ -87,8 +87,8 @@ public class PedestrianSummary extends AppCompatActivity {
         longi.setText(Stringlongi);
         Stringviolations=getIntent().getExtras().getString("Violations");
         violations.setText(Stringviolations);
-        date.setText(datetime);
-        Stringdate = date.getText().toString();
+        control.setText(controlNumber);
+        Stringcontrol = control.getText().toString();
 
     }
 
@@ -100,7 +100,7 @@ public class PedestrianSummary extends AppCompatActivity {
         note.put(KEY_VIOLATIONS, Stringviolations);
         note.put(KEY_LATITUDE, Stringlati);
         note.put(KEY_LONGITUDE, Stringlongi);
-        note.put(KEY_DATETIME, Stringdate);
+        note.put(KEY_CONTROL, Stringcontrol);
 
       //  reff.child(String.valueOf(maxid+1)).setValue("pedestrians");
 

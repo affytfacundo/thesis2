@@ -128,6 +128,8 @@ public class ticket extends BaseActivity {
         }
 
         private void processText (FirebaseVisionText text){
+
+            //working first
             List<FirebaseVisionText.TextBlock> blocks = text.getTextBlocks();
             if (blocks.size() == 0) {
                 Toast.makeText(ticket.this, "No text", Toast.LENGTH_SHORT).show();
@@ -137,6 +139,30 @@ public class ticket extends BaseActivity {
                 String txt = block.getText();
                 textView.setText(txt);
             }
+
+
+
+            //3rd
+            /*List <FirebaseVisionText.TextBlock> blocks = text.getTextBlocks();
+            if (blocks.size() == 0) {
+                Toast.makeText(ticket.this, "No text", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String s="";
+            for (int i = 0; i < blocks.size(); i++) {
+                List lines = blocks.get(i).getLines();
+                for (int j = 0; j < lines.size(); j++) {
+                    List elements = lines.get(j).getElements();
+                    for (int k = 0; k < elements.size(); k++) {
+                        s +=elements.get(k).getText()+" ";
+                    }
+                }
+            }
+            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+        }*/
+
+
+
 
 
             //2nd

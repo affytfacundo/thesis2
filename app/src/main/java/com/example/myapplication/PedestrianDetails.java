@@ -54,7 +54,7 @@ public class PedestrianDetails extends AppCompatActivity implements LocationList
         chooseViolations = findViewById(R.id.violationsBtn);
         vioTxt = findViewById(R.id.violationsHide);
 
-        listViolations = getResources().getStringArray(R.array.violations);
+        listViolations = getResources().getStringArray(R.array.pedestrianviolations);
         checkedViolations = new boolean[listViolations.length];
 
         chooseViolations.setOnClickListener(new View.OnClickListener() {

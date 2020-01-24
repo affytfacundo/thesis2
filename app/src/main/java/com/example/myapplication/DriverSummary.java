@@ -35,7 +35,7 @@ public class DriverSummary extends AppCompatActivity {
     private static final String KEY_LONGITUDE = "Longitude";
     private static final String KEY_CONTROL = "Control Number";
 
-    TextView name, gender, license, address, longi, lati, control, violations, timedate;
+    TextView name, gender, license, address, longi, lati, control, violations;
     String Stringname, Stringgender, Stringlicense, Stringaddress, Stringlongi, Stringlati, Stringcontrol, Stringviolations;
    /* long maxid=0;
     DatabaseReference reff;
