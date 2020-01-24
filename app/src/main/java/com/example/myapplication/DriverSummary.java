@@ -33,10 +33,10 @@ public class DriverSummary extends AppCompatActivity {
     private static final String KEY_VIOLATIONS = "Violations";
     private static final String KEY_LATITUDE = "Latitude";
     private static final String KEY_LONGITUDE = "Longitude";
-    private static final String KEY_CONTROL = "Control Number";
+    private static final String KEY_DATE = "Date & Time";
 
-    TextView name, gender, license, address, longi, lati, control, violations;
-    String Stringname, Stringgender, Stringlicense, Stringaddress, Stringlongi, Stringlati, Stringcontrol, Stringviolations;
+    TextView name, gender, license, address, longi, lati, date, violations, control;
+    String Stringname, Stringgender, Stringlicense, Stringaddress, Stringlongi, Stringlati, Stringdate, Stringviolations, Stringcontrol;
    /* long maxid=0;
     DatabaseReference reff;
     Member member;*/
@@ -57,12 +57,24 @@ public class DriverSummary extends AppCompatActivity {
         //SMS
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
-        String controlNumber = simpleDateFormat.format(calendar.getTime());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM-dd-yyyy-hh:mm:ss");
+        String datetime = simpleDateFormat.format(calendar.getTime());
+
+
+
+
+
+
+
+
+
 
     //    controlNumber = Integer.parseInt(datetime);
 
 
+        //MMM-dd-yyyy-hh:mm:ss
+
+        //yyyyMMddhhmmss control number
 
         name = findViewById(R.id.nameSum);
         gender = findViewById(R.id.genderSum);
@@ -70,8 +82,9 @@ public class DriverSummary extends AppCompatActivity {
         address = findViewById(R.id.addressSum);
         longi = findViewById(R.id.longSum);
         lati = findViewById(R.id.latSum);
-        control = findViewById(R.id.datetimeSum);
+        date = findViewById(R.id.datetimeSum);
         violations = findViewById(R.id.violationSum);
+        control = findViewById(R.id.controlText);
 
 
 
@@ -90,27 +103,33 @@ public class DriverSummary extends AppCompatActivity {
         longi.setText(Stringlongi);
         Stringviolations=getIntent().getExtras().getString("Violations");
         violations.setText(Stringviolations);
-        control.setText(controlNumber);
-        Stringcontrol = control.getText().toString();
+        date.setText(datetime);
+        Stringdate = date.getText().toString();
+
+
+        String input = Stringlicense;     //input string
+        String controlNo = Stringlicense;     //substring containing last 4 characters
+
+        if (input.length() > 6)
+        {
+            controlNo = input.substring(input.length() - 6);
+        }
+        else
+        {
+            controlNo = input;
+        }
+
+        Calendar calendar2 = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyyMMdd");
+        String controlnumber = simpleDateFormat1.format(calendar.getTime()) + "-" + controlNo;
+
+        control.setText(controlnumber);
 
 
 
     }
     public void upload(View v){
 
-       /* NexmoClient client = new NexmoClient.Builder()
-                .apiKey("e25f2504")
-                .apiSecret("c4rHgoelnf27mprX")
-                .build();
-
-        String messageText = "Hello from Nexmo charaaaan";
-        TextMessage message = new TextMessage("Nexmo", "639369590417", messageText);
-
-        SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
-
-        for (SmsSubmissionResponseMessage responseMessage : response.getMessages()) {
-            System.out.println(responseMessage);
-        }*/
 
         Map<String, Object> note = new HashMap<>();
         note.put(KEY_NAME, Stringname);
@@ -120,7 +139,7 @@ public class DriverSummary extends AppCompatActivity {
         note.put(KEY_VIOLATIONS, Stringviolations);
         note.put(KEY_LATITUDE, Stringlati);
         note.put(KEY_LONGITUDE, Stringlongi);
-        note.put(KEY_CONTROL, Stringcontrol);
+        note.put(KEY_DATE, Stringdate);
 
        // reff.child(String.valueOf(maxid+1)).setValue(note);
 

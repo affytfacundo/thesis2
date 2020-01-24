@@ -7,6 +7,18 @@
     tools:context=".DriverSummary">
 
     <TextView
+        android:id="@+id/controlText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="96dp"
+        android:text="Control"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/datetimeSum" />
+
+    <TextView
         android:id="@+id/violationSum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
