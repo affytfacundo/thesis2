@@ -22,7 +22,6 @@ public class Views extends AppCompatActivity {
         setContentView(R.layout.activity_views);
 
         driver = findViewById(R.id.buttonDriver);
-        pedestrian = findViewById(R.id.buttonPed);
         signout = findViewById(R.id.signOutBtn);
         ocrscanner = findViewById(R.id.tryOCR);
 
@@ -33,12 +32,6 @@ public class Views extends AppCompatActivity {
             }
         });
 
-        pedestrian.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goPedestrian();
-            }
-        });
 
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,10 +55,6 @@ public class Views extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void goPedestrian(){
-        Intent intent2 = new Intent(Views.this, PedestrianDetails.class);
-        startActivity(intent2);
-    }
 
     private void signOut(){
         FirebaseAuth.getInstance().signOut();

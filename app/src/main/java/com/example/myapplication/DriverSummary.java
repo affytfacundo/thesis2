@@ -34,6 +34,8 @@ public class DriverSummary extends AppCompatActivity {
     private static final String KEY_LATITUDE = "Latitude";
     private static final String KEY_LONGITUDE = "Longitude";
     private static final String KEY_DATE = "Date & Time";
+    private static final String KEY_CONTROL = "Control Number";
+
 
     TextView name, gender, license, address, longi, lati, date, violations, control;
     String Stringname, Stringgender, Stringlicense, Stringaddress, Stringlongi, Stringlati, Stringdate, Stringviolations, Stringcontrol;
@@ -63,15 +65,6 @@ public class DriverSummary extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-    //    controlNumber = Integer.parseInt(datetime);
-
-
         //MMM-dd-yyyy-hh:mm:ss
 
         //yyyyMMddhhmmss control number
@@ -80,11 +73,11 @@ public class DriverSummary extends AppCompatActivity {
         gender = findViewById(R.id.genderSum);
         license = findViewById(R.id.licenseSum);
         address = findViewById(R.id.addressSum);
-        longi = findViewById(R.id.longSum);
-        lati = findViewById(R.id.latSum);
+        longi = findViewById(R.id.longitudeSum);
+        lati = findViewById(R.id.latitudeSum);
         date = findViewById(R.id.datetimeSum);
         violations = findViewById(R.id.violationSum);
-        control = findViewById(R.id.controlText);
+        control = findViewById(R.id.ctrlSum);
 
 
 
@@ -120,10 +113,11 @@ public class DriverSummary extends AppCompatActivity {
         }
 
         Calendar calendar2 = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyyMMddhhmm");
         String controlnumber = simpleDateFormat1.format(calendar.getTime()) + "-" + controlNo;
 
         control.setText(controlnumber);
+        Stringcontrol = control.getText().toString();
 
 
 
@@ -140,6 +134,7 @@ public class DriverSummary extends AppCompatActivity {
         note.put(KEY_LATITUDE, Stringlati);
         note.put(KEY_LONGITUDE, Stringlongi);
         note.put(KEY_DATE, Stringdate);
+        note.put(KEY_CONTROL, Stringcontrol);
 
        // reff.child(String.valueOf(maxid+1)).setValue(note);
 

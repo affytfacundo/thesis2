@@ -1,128 +1,306 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:cardCornerRadius="4dp"
+    android:orientation="vertical"
     tools:context=".DriverSummary">
 
-    <TextView
-        android:id="@+id/controlText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="96dp"
-        android:text="Control"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datetimeSum" />
 
-    <TextView
-        android:id="@+id/violationSum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="24dp"
-        android:text="Violations"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datetimeSum" />
 
-    <TextView
-        android:id="@+id/datetimeSum"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layoutCtrl"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="336dp"
-        android:text="Date and Time"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_margin="4dp">
 
-    <TextView
-        android:id="@+id/longSum"
-        android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/ctrlText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Control No."
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:id="@+id/ctrlSum"
+                android:layout_below="@+id/ctrlText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Control Number"
+                android:textStyle="bold"
+                android:textSize="28sp"
+                />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layoutName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginLeft="26dp"
-        android:layout_marginBottom="22dp"
-        android:text="Longitude"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/datetimeSum"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_margin="4dp">
 
-    <TextView
-        android:id="@+id/latSum"
-        android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/nameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:id="@+id/nameSum"
+                android:layout_below="@+id/nameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textStyle="bold"
+                android:textSize="28sp"
+                />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layoutLicense"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginBottom="19dp"
-        android:text="Latitude"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/longSum"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_margin="4dp">
 
-    <TextView
-        android:id="@+id/addressSum"
-        android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/licenseText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="License No."
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:id="@+id/licenseSum"
+                android:layout_below="@+id/licenseText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="License Number"
+                android:textStyle="bold"
+                android:textSize="28sp"
+                />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layoutDate"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginLeft="29dp"
-        android:layout_marginTop="20dp"
-        android:text="Address"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/genderSum" />
+        android:layout_margin="4dp">
 
-    <TextView
-        android:id="@+id/genderSum"
-        android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/dateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date and Time"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:id="@+id/datetimeSum"
+                android:layout_below="@+id/dateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date and Time"
+                android:textStyle="bold"
+                android:textSize="28sp"
+                />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layoutGender"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="19dp"
-        android:text="Gender"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/licenseSum" />
+        android:layout_margin="4dp">
 
-    <TextView
-        android:id="@+id/licenseSum"
-        android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/genderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:id="@+id/genderSum"
+                android:layout_below="@+id/genderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gender"
+                android:textStyle="bold"
+                android:textSize="28sp"
+                />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layoutAddress"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginLeft="26dp"
-        android:layout_marginTop="22dp"
-        android:text="License No."
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameSum" />
+        android:layout_margin="4dp">
 
-    <TextView
-        android:id="@+id/nameSum"
-        android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/addressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:id="@+id/addressSum"
+                android:layout_below="@+id/addressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:textStyle="bold"
+                android:textSize="28sp"
+                />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layoutLatitude"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="20dp"
-        android:text="Name "
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_margin="4dp">
 
-    <Button
-        android:id="@+id/summaryBtnUpload"
-        android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/latitudeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Latitude"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:id="@+id/latitudeSum"
+                android:layout_below="@+id/latitudeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Latitude"
+                android:textStyle="bold"
+                android:textSize="28sp"
+                />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layoutLongitude"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="197dp"
-        android:onClick="upload"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_margin="4dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/longitudeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Longitude"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:id="@+id/longitudeSum"
+                android:layout_below="@+id/longitudeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Longitude"
+                android:textStyle="bold"
+                android:textSize="28sp"
+                />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layoutViolations"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/violationText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Violations"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:id="@+id/violationSum"
+                android:layout_below="@+id/violationText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Violations"
+                android:textStyle="bold"
+                android:textSize="28sp"
+                />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/summaryBtnUpload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="upload"
+            android:text="SUBMIT"
+            android:textSize="28dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"></Button>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>
+

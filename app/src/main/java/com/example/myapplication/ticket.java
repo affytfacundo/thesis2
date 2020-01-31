@@ -36,7 +36,6 @@ public class ticket extends BaseActivity {
     private TextView textView;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     Bitmap imageBitmap;
-    File photoFile;
 
 
     @Override

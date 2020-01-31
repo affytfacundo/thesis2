@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,11 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
@@ -31,10 +25,11 @@ public class PedestrianSummary extends AppCompatActivity {
     private static final String KEY_VIOLATIONS = "Violations";
     private static final String KEY_LATITUDE = "Latitude";
     private static final String KEY_LONGITUDE = "Longitude";
+    private static final String KEY_DATE = "Date & Time";
     private static final String KEY_CONTROL = "Control Number";
 
     TextView name, gender, address, longi, lati, control, violations, timedate;
-    String Stringname, Stringgender, Stringaddress, Stringlongi, Stringlati, Stringcontrol, Stringviolations;
+    String Stringname, Stringgender, Stringaddress, Stringdate, Stringlongi, Stringlati, Stringviolations;
     /*long maxid=0;
     DatabaseReference reff;*/
 
@@ -64,16 +59,18 @@ public class PedestrianSummary extends AppCompatActivity {
 
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
-        String controlNumber = simpleDateFormat.format(calendar.getTime());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM-dd-yyyy-hh:mm:ss");
+        String datetime = simpleDateFormat.format(calendar.getTime());
 
         name = findViewById(R.id.nameSum);
         gender = findViewById(R.id.genderSum);
         address = findViewById(R.id.addressSum);
         longi = findViewById(R.id.longSum);
         lati = findViewById(R.id.latSum);
-        control = findViewById(R.id.datetimeSum);
+        timedate = findViewById(R.id.datetimeSum);
         violations = findViewById(R.id.violationSum);
+        control = findViewById(R.id.controlText);
+
 
         Stringname = getIntent().getExtras().getString("Name");
         name.setText(Stringname);
@@ -87,8 +84,8 @@ public class PedestrianSummary extends AppCompatActivity {
         longi.setText(Stringlongi);
         Stringviolations=getIntent().getExtras().getString("Violations");
         violations.setText(Stringviolations);
-        control.setText(controlNumber);
-        Stringcontrol = control.getText().toString();
+        timedate.setText(datetime);
+        Stringdate = timedate.getText().toString();
 
     }
 
@@ -100,7 +97,8 @@ public class PedestrianSummary extends AppCompatActivity {
         note.put(KEY_VIOLATIONS, Stringviolations);
         note.put(KEY_LATITUDE, Stringlati);
         note.put(KEY_LONGITUDE, Stringlongi);
-        note.put(KEY_CONTROL, Stringcontrol);
+        note.put(KEY_DATE, Stringdate);
+        note.put(KEY_CONTROL, control);
 
       //  reff.child(String.valueOf(maxid+1)).setValue("pedestrians");
 
