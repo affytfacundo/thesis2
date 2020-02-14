@@ -7,6 +7,16 @@
     tools:context=".ticket">
 
 
+    <Button
+        android:id="@+id/uploadimg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="88dp"
+        android:text="Upload Image"
+        app:layout_constraintBottom_toTopOf="@+id/detect_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/image_view"

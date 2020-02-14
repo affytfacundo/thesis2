@@ -2,12 +2,17 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,10 +25,12 @@ import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
-
+import com.google.firebase.ml.vision.text.RecognizedLanguage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static com.example.myapplication.BaseActivity.SELECT_PHOTO;
@@ -31,11 +38,12 @@ import static com.example.myapplication.BaseActivity.WRITE_STORAGE;
 
 public class ticket extends BaseActivity {
 
-    private Button captureImageBtn, detectTextBtn;
+    private Button captureImageBtn, detectTextBtn, uploadImageBtn;
     private ImageView imageView;
     private TextView textView;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_TAKE_PHOTO = 1;
     Bitmap imageBitmap;
+    String currentPhotoPath;
 
 
     @Override
@@ -45,6 +53,7 @@ public class ticket extends BaseActivity {
 
         captureImageBtn = findViewById(R.id.capture_image);
         detectTextBtn = findViewById(R.id.detect_text);
+        uploadImageBtn = findViewById(R.id.uploadimg);
         imageView = findViewById(R.id.image_view);
         textView = findViewById(R.id.text_display);
 
@@ -62,49 +71,120 @@ public class ticket extends BaseActivity {
             }
         });
 
+        uploadImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+       /* Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }*/
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
         }
+
     }
+
+
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = new File( Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DCIM), "Camera");
+        if(!storageDir.exists()){
+
+            boolean s = new File(storageDir.getPath()).mkdirs();
+
+            if(!s){
+                Log.v("not", "not created");
+            }
+            else{
+                Log.v("cr","directory created");
+            }
+        }
+        else{
+            Log.v("directory", "directory exists");
+        }
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        galleryAddPic();
+        return image;
+
+    }
+
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(currentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+      /*  if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
-            imageView.setImageBitmap(imageBitmap);
+            imageView.setImageBitmap(imageBitmap);*/
 
 
             //Get full image instead of thumbnail
-        /*if(requestCode == RESULT_OK){
-            switch (requestCode){
+         galleryAddPic();
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
                 case WRITE_STORAGE:
                     checkPermission(requestCode);
                     break;
-
                 case SELECT_PHOTO:
                     Uri dataUri = data.getData();
-                    String path = MyHelper.getPath(ticket.this, dataUri);
-
-                    if (path == null){
-                        imageBitmap = MyHelper.resizePhoto(photo, ticket.this, dataUri, imageView);
-                    }else {
+                    String path = MyHelper.getPath(this, dataUri);
+                    if (path == null) {
+                        imageBitmap = MyHelper.resizePhoto(photo, this, dataUri, imageView);
+                    } else {
                         imageBitmap = MyHelper.resizePhoto(photo, path, imageView);
                     }
-                    if(imageBitmap != null) {
+                    if (imageBitmap != null) {
                         textView.setText(null);
                         imageView.setImageBitmap(imageBitmap);
                     }
                     break;
+
             }
-        }*/
         }
-    }
+        }
 
     /*private void checkPermission(int requestCode) {
     }*/
@@ -134,10 +214,16 @@ public class ticket extends BaseActivity {
                 Toast.makeText(ticket.this, "No text", Toast.LENGTH_SHORT).show();
                 return;
             }
+            //working
             for (FirebaseVisionText.TextBlock block : text.getTextBlocks()) {
                 String txt = block.getText();
                 textView.setText(txt);
             }
+
+
+
+
+        }
 
 
 
@@ -174,7 +260,6 @@ public class ticket extends BaseActivity {
             textView.append(block.getText());*/
         }
 
-    }
 
 
 

@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.lang.reflect.Member;
+import java.sql.Driver;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -35,8 +37,10 @@ public class DriverSummary extends AppCompatActivity {
     private static final String KEY_LONGITUDE = "Longitude";
     private static final String KEY_DATE = "Date & Time";
     private static final String KEY_CONTROL = "Control Number";
+    private final static int SEND_SMS_PERMISSION_REQUEST_CODE = 143;
 
 
+    TextView phoneNumb;
     TextView name, gender, license, address, longi, lati, date, violations, control;
     String Stringname, Stringgender, Stringlicense, Stringaddress, Stringlongi, Stringlati, Stringdate, Stringviolations, Stringcontrol;
    /* long maxid=0;
@@ -53,6 +57,9 @@ public class DriverSummary extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
+        phoneNumb = findViewById(R.id.phoneNum);
+
+
         //SMS
 
 
@@ -62,12 +69,6 @@ public class DriverSummary extends AppCompatActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM-dd-yyyy-hh:mm:ss");
         String datetime = simpleDateFormat.format(calendar.getTime());
 
-
-
-
-        //MMM-dd-yyyy-hh:mm:ss
-
-        //yyyyMMddhhmmss control number
 
         name = findViewById(R.id.nameSum);
         gender = findViewById(R.id.genderSum);
@@ -136,10 +137,6 @@ public class DriverSummary extends AppCompatActivity {
         note.put(KEY_DATE, Stringdate);
         note.put(KEY_CONTROL, Stringcontrol);
 
-       // reff.child(String.valueOf(maxid+1)).setValue(note);
-
-
-
         db.collection("drivers").document(    ).set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -153,8 +150,40 @@ public class DriverSummary extends AppCompatActivity {
 
                     }
                 });
-
+        sendTextViolations();
+        sendTextControl();
 
     }
 
-}
+    public void sendTextViolations() {
+        String number = phoneNumb.getText().toString();
+        String sms = "You have been apprehended for the following:" + " " + Stringviolations;
+
+
+        try {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(number, null, sms, null, null);
+            Toast.makeText(DriverSummary.this, "Sent", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            Toast.makeText(DriverSummary.this, "Failed", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public void sendTextControl() {
+        String number = phoneNumb.getText().toString();
+        String sms = "Your Control Number: " + Stringcontrol + "\n " + "Visit bit.ly/eCTTMO to review your violation.";
+
+
+        try {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(number, null, sms, null, null);
+            Toast.makeText(DriverSummary.this, "Sent", Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            Toast.makeText(DriverSummary.this, "Failed", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    }
