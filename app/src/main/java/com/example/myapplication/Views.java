@@ -65,7 +65,7 @@ public class Views extends AppCompatActivity {
     }
 
     private void goScanner(){
-        Intent intent4 = new Intent(Views.this, ticket.class);
-        startActivity(intent4);
+       // Intent intent4 = new Intent(Views.this, ticket.class);
+      //  startActivity(intent4);
     }
 }

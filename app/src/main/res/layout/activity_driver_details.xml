@@ -6,6 +6,60 @@
     android:layout_height="match_parent"
     tools:context=".DriverDetails">
 
+    <ImageView
+        android:id="@+id/image_view2"
+        android:layout_width="596dp"
+        android:layout_height="364dp"
+        android:layout_marginStart="248dp"
+        android:layout_marginLeft="248dp"
+        android:src="@drawable/ic_placeholder"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/detect_textBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="summarize"
+        android:text="DETECT OCR"
+        app:layout_constraintBottom_toTopOf="@+id/captureImgBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/uploadBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="summarize"
+        android:text="SUMMARIZE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/violationsBtn"
+        android:layout_width="146dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="16dp"
+        android:text="PICK VIOLATIONS"
+        app:layout_constraintBottom_toTopOf="@+id/detect_textBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resetFieldsBtn"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/captureImgBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="summarize"
+        android:text="CAPTURE IMAGE"
+        app:layout_constraintBottom_toTopOf="@+id/uploadBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <EditText
         android:id="@+id/timeText"
         android:layout_width="wrap_content"
@@ -86,24 +140,6 @@
         app:layout_constraintTop_toBottomOf="@+id/gendertxt"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/uploadBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="176dp"
-        android:onClick="summarize"
-        android:text="SUMMARIZE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/violationsBtn"
-        app:layout_constraintVertical_bias="1.0" />
-
     <EditText
         android:id="@+id/latitudeText"
         android:layout_width="wrap_content"
@@ -138,16 +174,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/latitudeText" />
 
-    <Button
-        android:id="@+id/violationsBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="PICK VIOLATIONS"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/longitudeText" />
-
     <EditText
         android:id="@+id/violationsHide"
         android:layout_width="wrap_content"
@@ -159,5 +185,24 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/resetFieldsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="CLEAR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addresstxt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

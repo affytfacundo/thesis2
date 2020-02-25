@@ -1,3 +1,4 @@
+/*
 package com.example.myapplication;
 
 import androidx.annotation.NonNull;
@@ -6,8 +7,6 @@ import androidx.core.content.FileProvider;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Point;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,7 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,25 +23,21 @@ import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
-import com.google.firebase.ml.vision.text.RecognizedLanguage;
+
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
-import static com.example.myapplication.BaseActivity.SELECT_PHOTO;
-import static com.example.myapplication.BaseActivity.WRITE_STORAGE;
-
-public class ticket extends BaseActivity {
+public class ticket extends AppCompatActivity {
 
     private Button captureImageBtn, detectTextBtn, uploadImageBtn;
-    private ImageView imageView;
-    private TextView textView;
+    private ImageView myImageView;
+    private TextView myTextView;
     static final int REQUEST_TAKE_PHOTO = 1;
     Bitmap imageBitmap;
     String currentPhotoPath;
+    private TextView nameocr, licenseocr;
 
 
     @Override
@@ -53,9 +47,8 @@ public class ticket extends BaseActivity {
 
         captureImageBtn = findViewById(R.id.capture_image);
         detectTextBtn = findViewById(R.id.detect_text);
-        uploadImageBtn = findViewById(R.id.uploadimg);
-        imageView = findViewById(R.id.image_view);
-        textView = findViewById(R.id.text_display);
+        myImageView = findViewById(R.id.image_view2);
+        myTextView = findViewById(R.id.textView);
 
         captureImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,12 +64,6 @@ public class ticket extends BaseActivity {
             }
         });
 
-        uploadImageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
     }
 
@@ -127,9 +114,15 @@ public class ticket extends BaseActivity {
             Log.v("directory", "directory exists");
         }
         File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
+                imageFileName,
+ prefix
+
+                ".jpg",
+ suffix
+
+                storageDir
+ directory
+
         );
 
         // Save a file: path for use with ACTION_VIEW intents
@@ -151,15 +144,16 @@ public class ticket extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-      /*  if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+  if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
-            imageView.setImageBitmap(imageBitmap);*/
+            imageView.setImageBitmap(imageBitmap);
+
 
 
             //Get full image instead of thumbnail
          galleryAddPic();
-        if (resultCode == RESULT_OK) {
+  if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case WRITE_STORAGE:
                     checkPermission(requestCode);
@@ -168,22 +162,24 @@ public class ticket extends BaseActivity {
                     Uri dataUri = data.getData();
                     String path = MyHelper.getPath(this, dataUri);
                     if (path == null) {
-                        imageBitmap = MyHelper.resizePhoto(photo, this, dataUri, imageView);
+                        imageBitmap = MyHelper.resizePhoto(photo, this, dataUri, myImageView);
                     } else {
-                        imageBitmap = MyHelper.resizePhoto(photo, path, imageView);
+                        imageBitmap = MyHelper.resizePhoto(photo, path, myImageView);
                     }
                     if (imageBitmap != null) {
-                        textView.setText(null);
-                        imageView.setImageBitmap(imageBitmap);
+                        myTextView.setText(null);
+                        myImageView.setImageBitmap(imageBitmap);
                     }
                     break;
 
             }
         }
+
         }
 
-    /*private void checkPermission(int requestCode) {
-    }*/
+private void checkPermission(int requestCode) {
+    }
+
 
         private void detectTextFromImage () {
             FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(imageBitmap);
@@ -191,7 +187,7 @@ public class ticket extends BaseActivity {
             detector.processImage(firebaseVisionImage).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
                 @Override
                 public void onSuccess(FirebaseVisionText texts) {
-                    processText(texts);
+                    processExtractedText(texts);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -202,29 +198,58 @@ public class ticket extends BaseActivity {
 
         }
 
-        private void processText (FirebaseVisionText text){
-
-            //working first
-            List<FirebaseVisionText.TextBlock> blocks = text.getTextBlocks();
-            if (blocks.size() == 0) {
-                Toast.makeText(ticket.this, "No text", Toast.LENGTH_SHORT).show();
+        private void processExtractedText (FirebaseVisionText firebaseVisionText){
+            String inputOCR = null;
+          //  licenseocr.setText("");
+           // nameocr.setText("");
+            myTextView.setText(null);
+            if (firebaseVisionText.getTextBlocks().size() == 0) {
+                myTextView.setText(R.string.no_text);
                 return;
             }
-            //working
-            for (FirebaseVisionText.TextBlock block : text.getTextBlocks()) {
-                String txt = block.getText();
-                textView.setText(txt);
+            for (FirebaseVisionText.TextBlock block : firebaseVisionText.getTextBlocks()) {
+                myTextView.append(block.getText());
+            }
+
+            inputOCR = myTextView.getText().toString();
+            //String[] list = inputOCR.split(" ");
+            String[] list = inputOCR.split("(?=\\p{Space})");
+
+ for(int i = 0; i < list.length; i++){
+            Log.e("Values", "" + list[i]);
+        }
+
+
+
+            for(int i = 0; i < list.length; i++){
+                if (list[i].contains("Middle")){
+
+                    Log.e("Check", "" + list[i+2]);
+                    Log.e("Check", "" + list[i+3]);
+                    Log.e("Check", "" + list[i+4]);
+                    String lastname = list[i+2];
+                    String firstname = list[i+3];
+                    String midname = list[i+4];
+              //      nameocr.setText(lastname + firstname + midname);
+                }
             }
 
 
+            for(int i = 0; i < list.length; i++){
+                if (list[i].contains("No.")){
 
+                    Log.e("Check", "" + list[i+1]);
+                    String licenseNum = list[i+1];
+               //     licenseocr.setText(licenseNum);
+                }
+            }
 
         }
 
 
 
             //3rd
-            /*List <FirebaseVisionText.TextBlock> blocks = text.getTextBlocks();
+List <FirebaseVisionText.TextBlock> blocks = text.getTextBlocks();
             if (blocks.size() == 0) {
                 Toast.makeText(ticket.this, "No text", Toast.LENGTH_SHORT).show();
                 return;
@@ -240,23 +265,26 @@ public class ticket extends BaseActivity {
                 }
             }
             Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-        }*/
+        }
+
 
 
 
 
 
             //2nd
-        /*textView.setText(null);
+textView.setText(null);
         if(text.getTextBlocks().size() == 0){
             Toast.makeText(ticket.this, "No text", Toast.LENGTH_SHORT).show();
             return;
         }
         for(FirebaseVisionText.TextBlock block : text.getTextBlocks()){
-            textView.append(block.getText());*/
+            textView.append(block.getText());
+
         }
 
 
 
 
 
+*/

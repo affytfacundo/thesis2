@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">CTTMO eCitation Ticket System</string>
     <string name="areacode">+63</string>
 
     <string-array name="violations">

@@ -1,51 +1,65 @@
 package com.example.myapplication;
 
-import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.GeoPoint;
-import com.google.type.LatLng;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.text.FirebaseVisionText;
+import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Date;
 
-public class DriverDetails extends AppCompatActivity implements LocationListener {
+public class DriverDetails extends BaseActivity implements LocationListener {
 
     EditText name, gender, license, address, timedate, vioTxt;
-    Button upload, chooseViolations;
+    Button upload, chooseViolations, resetinput;
     TextView longitude, latitude;
     private LocationManager locationManager;
     private String provider;
     String[] listViolations;
     boolean[] checkedViolations;
     ArrayList<Integer> driveViolation = new ArrayList<>();
+
+    private ImageView myImageView;
+    private TextView myTextView;
+    private Button captureImageBtn, detectTextBtn;
+    private Bitmap myBitmap;
+    String currentPhotoPath;
+    static final int REQUEST_TAKE_PHOTO = 1;
 
 
 
@@ -55,6 +69,12 @@ public class DriverDetails extends AppCompatActivity implements LocationListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_details);
+
+
+        captureImageBtn = findViewById(R.id.captureImgBtn);
+        detectTextBtn = findViewById(R.id.detect_textBtn);
+        myImageView = findViewById(R.id.image_view2);
+        myTextView = findViewById(R.id.txt_display);
 
 
 
@@ -68,6 +88,7 @@ public class DriverDetails extends AppCompatActivity implements LocationListener
         address = findViewById(R.id.addresstxt);
         upload = findViewById(R.id.uploadBtn);
         timedate = findViewById(R.id.timeText);
+        resetinput = findViewById(R.id.resetFieldsBtn);
 
 
         chooseViolations = findViewById(R.id.violationsBtn);
@@ -75,6 +96,31 @@ public class DriverDetails extends AppCompatActivity implements LocationListener
 
         listViolations = getResources().getStringArray(R.array.violations);
         checkedViolations = new boolean[listViolations.length];
+
+        resetinput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                name.setText("");
+                license.setText("");
+                gender.setText("");
+                address.setText("");
+            }
+        });
+
+        captureImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dispatchTakePictureIntent();
+            }
+        });
+
+        detectTextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                runTextRecog();
+            }
+        });
+
 
         chooseViolations.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,6 +204,175 @@ public class DriverDetails extends AppCompatActivity implements LocationListener
             longitude.setText("Location not available");
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        galleryAddPic();
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case WRITE_STORAGE:
+                    checkPermission(requestCode);
+                    break;
+                case SELECT_PHOTO:
+                    Uri dataUri = data.getData();
+                    String path = MyHelper.getPath(this, dataUri);
+                    if (path == null) {
+                        myBitmap = MyHelper.resizePhoto(photo, this, dataUri, myImageView);
+                    } else {
+                        myBitmap = MyHelper.resizePhoto(photo, path, myImageView);
+                    }
+                    if (myBitmap != null) {
+                        myTextView.setText(null);
+                        myImageView.setImageBitmap(myBitmap);
+                    }
+                    break;
+
+            }
+        }
+    }
+
+    private void dispatchTakePictureIntent() {
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.myapplication.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+
+    }
+
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = new File( Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DCIM), "Camera");
+        if(!storageDir.exists()){
+
+            boolean s = new File(storageDir.getPath()).mkdirs();
+
+            if(!s){
+                Log.v("not", "not created");
+            }
+            else{
+                Log.v("cr","directory created");
+            }
+        }
+        else{
+            Log.v("directory", "directory exists");
+        }
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        galleryAddPic();
+        return image;
+
+    }
+
+
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(currentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
+    }
+
+
+
+
+    private void runTextRecog() {
+        FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(myBitmap);
+        FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
+        detector.processImage(image).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+            @Override
+            public void onSuccess(FirebaseVisionText texts) {
+                processTextExtract(texts);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure
+                    (@NonNull Exception exception) {
+                Toast.makeText(DriverDetails.this,
+                        "Exception", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }
+
+    private void processTextExtract(FirebaseVisionText firebaseVisionText){
+        String inputOCR = null;
+        name.setText(null);
+        license.setText(null);
+        myTextView.setText(null);
+        if (firebaseVisionText.getTextBlocks().size() == 0) {
+            myTextView.setText(R.string.no_text);
+            return;
+        }
+        for (FirebaseVisionText.TextBlock block : firebaseVisionText.getTextBlocks()) {
+            myTextView.append(block.getText());
+        }
+
+        inputOCR = myTextView.getText().toString();
+        //String[] list = inputOCR.split(" ");
+        String[] list = inputOCR.split("(?=\\p{Space})");
+
+       /* for(int i = 0; i < list.length; i++){
+            Log.e("Values", "" + list[i]);
+        }*/
+
+
+        for(int i = 0; i < list.length; i++){
+            if (list[i].contains("Middle")){
+
+                Log.e("Check", "" + list[i+2]);
+                Log.e("Check", "" + list[i+3]);
+                Log.e("Check", "" + list[i+4]);
+                String lastname = list[i+2];
+                String firstname = list[i+3];
+                String midname = list[i+4];
+                name.setText(lastname + firstname + midname);
+            }
+        }
+
+
+        for(int i = 0; i < list.length; i++){
+            if (list[i].contains("No.")){
+
+                Log.e("Check", "" + list[i+1]);
+                String licenseNum = list[i+1];
+                   license.setText(licenseNum);
+            }
+        }
+
+        Log.e("char","" + myTextView.getText().toString());
+
+    }
+
+
+
 
     public void summarize(View v){
 

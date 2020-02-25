@@ -38,9 +38,15 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.my_menu, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.string.action_gallery:
+            case R.id.gallery_action:
                 checkPermission(WRITE_STORAGE);
                 break;
         }
@@ -100,7 +106,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-    private void selectPicture() {
+    void selectPicture() {
         photo = MyHelper.createTempFile(photo);
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, SELECT_PHOTO);
