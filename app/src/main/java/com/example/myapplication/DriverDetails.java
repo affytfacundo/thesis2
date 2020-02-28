@@ -363,88 +363,12 @@ public class DriverDetails extends BaseActivity implements LocationListener {
                 }*/
             }
 
-          /*  if (list[i].contains("Middie"))
-                if (list[i + 1].contains("Name") || list[i+1].contains("Mame")){
-                    String lastname = list[i + 2];
-                    String firstname = list[i + 3];
-                    String midname = list[i + 4];
-                    name.setText(lastname + firstname + midname);
-                }
-                *//*else{
-                    String trimlastname = list[i+1];
-                    StringBuilder str = new StringBuilder(trimlastname);
-                    str.delete(0, 4);
-                    String firstname = list[i + 2];
-                    String midname = list[i + 3];
-                    name.setText(str + firstname + midname);
 
-
-                }*//*
-
-            if (list[i].contains("Middile"))
-                if (list[i + 1].contains("Name") || list[i+1].contains("Mame")){
-                    String lastname = list[i + 2];
-                    String firstname = list[i + 3];
-                    String midname = list[i + 4];
-                    name.setText(lastname + firstname + midname);
-                }
-                *//*else{
-                    String trimlastname = list[i+1];
-                    StringBuilder str = new StringBuilder(trimlastname);
-                    str.delete(0, 4);
-                    String firstname = list[i + 2];
-                    String midname = list[i + 3];
-                    name.setText(str + firstname + midname);
-                }*//*
-
-            if (list[i].contains("Maddle"))
-                if (list[i + 1].contains("Name") || list[i+1].contains("Mame")){
-                    String lastname = list[i + 2];
-                    String firstname = list[i + 3];
-                    String midname = list[i + 4];
-                    name.setText(lastname + firstname + midname);
-                }
-               *//* else{
-                    String trimlastname = list[i+1];
-                    StringBuilder str = new StringBuilder(trimlastname);
-                    str.delete(0, 4);
-                    String firstname = list[i + 2];
-                    String midname = list[i + 3];
-                    name.setText(str + firstname + midname);
-                }*//*
-
-            if (list[i].contains("Hiddle"))
-                if (list[i + 1].contains("Name") || list[i+1].contains("Mame")){
-                    String lastname = list[i + 2];
-                    String firstname = list[i + 3];
-                    String midname = list[i + 4];
-                    name.setText(lastname + firstname + midname);
-                }
-
-
-            if (list[i].contains("Midde"))
-                if (list[i + 1].contains("Name") || list[i+1].contains("Mame")){
-                    String lastname = list[i + 2];
-                    String firstname = list[i + 3];
-                    String midname = list[i + 4];
-                    name.setText(lastname + firstname + midname);
-                }*/
-
-           /* else{
-                String trimlastname = list[i+1];
-                StringBuilder str = new StringBuilder(trimlastname);
-                str.delete(0, 4);
-                String firstname = list[i + 2];
-                String midname = list[i + 3];
-                name.setText(str + firstname + midname);
-            }*/
 
         }
 
         for(int i = 0; i < list.length; i++){
             if (list[i].contains("No.")){
-
-                Log.e("Check", "" + list[i+1]);
                 String licenseNum = list[i+1];
                    license.setText(licenseNum);
             }
@@ -454,12 +378,15 @@ public class DriverDetails extends BaseActivity implements LocationListener {
             }
         }
 
-/*
         for(int i =0; i < list.length; i++){
             if(list[i].contains("Address")){
-                list[i]
+                String add = list[i+1];
+                String sum = list[i+2];
+                String addressTxt = add + sum;
+                address.setText(addressTxt);
+
             }
-        }*/
+        }
 
 
         Log.e("char","" + myTextView.getText().toString());
