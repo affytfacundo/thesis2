@@ -344,19 +344,102 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         }*/
 
 
-        for(int i = 0; i < list.length; i++){
-            if (list[i].contains("Middle")){
+        for(int i = 0; i < list.length; i++) {
+            if (list[i].contains("Middle") || list[i].contains("Middie") || list[i].contains("Middile") || list[i].contains("Maddle") || list[i].contains("Hiddle") || list[i].contains("Midde")) {
+                if (list[i + 1].contains("Name") || list[i + 1].contains("Mame") || list[i].contains("Namne")) {
+                    String lastname = list[i + 2];
+                    String firstname = list[i + 3];
+                    String midname = list[i + 4];
+                    String allname = lastname + firstname + midname;
+                    allname = allname.replaceAll("\\B0|0\\B", "O");
+                    name.setText(allname);
+                } /*else {
+                    String lastname = list[i + 1];
+                    lastname.substring(3);
 
-                Log.e("Check", "" + list[i+2]);
-                Log.e("Check", "" + list[i+3]);
-                Log.e("Check", "" + list[i+4]);
-                String lastname = list[i+2];
-                String firstname = list[i+3];
-                String midname = list[i+4];
-                name.setText(lastname + firstname + midname);
+                    String firstname = list[i + 2];
+                    String midname = list[i + 3];
+                    name.setText(lastname + firstname + midname);
+                }*/
             }
-        }
 
+          /*  if (list[i].contains("Middie"))
+                if (list[i + 1].contains("Name") || list[i+1].contains("Mame")){
+                    String lastname = list[i + 2];
+                    String firstname = list[i + 3];
+                    String midname = list[i + 4];
+                    name.setText(lastname + firstname + midname);
+                }
+                *//*else{
+                    String trimlastname = list[i+1];
+                    StringBuilder str = new StringBuilder(trimlastname);
+                    str.delete(0, 4);
+                    String firstname = list[i + 2];
+                    String midname = list[i + 3];
+                    name.setText(str + firstname + midname);
+
+
+                }*//*
+
+            if (list[i].contains("Middile"))
+                if (list[i + 1].contains("Name") || list[i+1].contains("Mame")){
+                    String lastname = list[i + 2];
+                    String firstname = list[i + 3];
+                    String midname = list[i + 4];
+                    name.setText(lastname + firstname + midname);
+                }
+                *//*else{
+                    String trimlastname = list[i+1];
+                    StringBuilder str = new StringBuilder(trimlastname);
+                    str.delete(0, 4);
+                    String firstname = list[i + 2];
+                    String midname = list[i + 3];
+                    name.setText(str + firstname + midname);
+                }*//*
+
+            if (list[i].contains("Maddle"))
+                if (list[i + 1].contains("Name") || list[i+1].contains("Mame")){
+                    String lastname = list[i + 2];
+                    String firstname = list[i + 3];
+                    String midname = list[i + 4];
+                    name.setText(lastname + firstname + midname);
+                }
+               *//* else{
+                    String trimlastname = list[i+1];
+                    StringBuilder str = new StringBuilder(trimlastname);
+                    str.delete(0, 4);
+                    String firstname = list[i + 2];
+                    String midname = list[i + 3];
+                    name.setText(str + firstname + midname);
+                }*//*
+
+            if (list[i].contains("Hiddle"))
+                if (list[i + 1].contains("Name") || list[i+1].contains("Mame")){
+                    String lastname = list[i + 2];
+                    String firstname = list[i + 3];
+                    String midname = list[i + 4];
+                    name.setText(lastname + firstname + midname);
+                }
+
+
+            if (list[i].contains("Midde"))
+                if (list[i + 1].contains("Name") || list[i+1].contains("Mame")){
+                    String lastname = list[i + 2];
+                    String firstname = list[i + 3];
+                    String midname = list[i + 4];
+                    name.setText(lastname + firstname + midname);
+                }*/
+
+           /* else{
+                String trimlastname = list[i+1];
+                StringBuilder str = new StringBuilder(trimlastname);
+                str.delete(0, 4);
+                String firstname = list[i + 2];
+                String midname = list[i + 3];
+                name.setText(str + firstname + midname);
+            }*/
+
+        }
 
         for(int i = 0; i < list.length; i++){
             if (list[i].contains("No.")){
@@ -365,7 +448,19 @@ public class DriverDetails extends BaseActivity implements LocationListener {
                 String licenseNum = list[i+1];
                    license.setText(licenseNum);
             }
+            if(list[i].contains("No")){
+                String licenseNum = list[i+1];
+                license.setText(licenseNum);
+            }
         }
+
+/*
+        for(int i =0; i < list.length; i++){
+            if(list[i].contains("Address")){
+                list[i]
+            }
+        }*/
+
 
         Log.e("char","" + myTextView.getText().toString());
 
