@@ -37,6 +37,7 @@ public class DriverSummary extends AppCompatActivity {
     private static final String KEY_LONGITUDE = "Longitude";
     private static final String KEY_DATE = "Date & Time";
     private static final String KEY_CONTROL = "Control Number";
+    private static final String KEY_PLATE = "Plate Number";
     private final static int SEND_SMS_PERMISSION_REQUEST_CODE = 143;
 
 

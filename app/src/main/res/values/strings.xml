@@ -8,10 +8,37 @@
         <item>Obstruction</item>
         <item>Drinking and Driving</item>
         <item>Beating Red Light</item>
+        <item></item>
     </string-array>
 
     <string-array name="pedestrianviolations">
         <item>Jaywalking</item>
+    </string-array>
+    
+    <string-array name="makeCars">
+        <item>BMW</item>
+        <item>Ducati</item>
+        <item>Ford</item>
+        <item>Foton</item>
+        <item>Honda</item>
+        <item>Hyundai</item>
+        <item>Isuzu</item>
+        <item>Jeep</item>
+        <item>Kawasaki</item>
+        <item>Kia</item>
+        <item>KTM</item>
+        <item>Lexus</item>
+        <item>Mazda</item>
+        <item>Mercedes-Benz</item>
+        <item>MG</item>
+        <item>Mitsubishi</item>
+        <item>Nissan</item>
+        <item>Peugeot</item>
+        <item>Subaru</item>
+        <item>Suzuki</item>
+        <item>Toyota</item>
+        <item>Volkswagen</item>
+        <item>Yamaha</item>
     </string-array>
 
 

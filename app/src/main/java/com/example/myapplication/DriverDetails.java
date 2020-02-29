@@ -23,9 +23,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +47,8 @@ import java.util.Date;
 
 public class DriverDetails extends BaseActivity implements LocationListener {
 
-    EditText name, gender, license, address, timedate, vioTxt;
+    EditText name, gender, license, addressText, timedate, vioTxt, plateNum;
+    Spinner makeText;
     Button upload, chooseViolations, resetinput;
     TextView longitude, latitude;
     private LocationManager locationManager;
@@ -85,7 +88,11 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         name = findViewById(R.id.nametxt);
         gender = findViewById(R.id.gendertxt);
         license = findViewById(R.id.licensetxt);
-        address = findViewById(R.id.addresstxt);
+        addressText = findViewById(R.id.addresstxt);
+        //plate num wala pa sa driverSummary.java (no space yet)
+        plateNum = findViewById(R.id.plateNumTxt);
+        //make dn wala pa sa driverSummary (no space)
+        makeText = findViewById(R.id.makeTxt);
         upload = findViewById(R.id.uploadBtn);
         timedate = findViewById(R.id.timeText);
         resetinput = findViewById(R.id.resetFieldsBtn);
@@ -103,7 +110,8 @@ public class DriverDetails extends BaseActivity implements LocationListener {
                 name.setText("");
                 license.setText("");
                 gender.setText("");
-                address.setText("");
+                addressText.setText("");
+                plateNum.setText("");
             }
         });
 
@@ -177,6 +185,11 @@ public class DriverDetails extends BaseActivity implements LocationListener {
             }
         });
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, getResources()
+        .getStringArray(R.array.makeCars));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        makeText.setAdapter(adapter);
+
 
 
 
@@ -200,8 +213,8 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         if (location != null) {
             onLocationChanged(location);
         } else {
-            latitude.setText("Location not available.");
-            longitude.setText("Location not available");
+            Toast.makeText(DriverDetails.this,
+                    "Location not available", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -322,7 +335,7 @@ public class DriverDetails extends BaseActivity implements LocationListener {
 
     }
 
-    private void processTextExtract(FirebaseVisionText firebaseVisionText){
+    private void processTextExtract(FirebaseVisionText firebaseVisionText) {
         String inputOCR = null;
         name.setText(null);
         license.setText(null);
@@ -344,7 +357,43 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         }*/
 
 
-        for(int i = 0; i < list.length; i++) {
+       /* int startPos = getIndexOfWordInArray(list, "Address") + 1;
+        int endPos = getIndexOfWordInArray(list, "License");
+
+        Log.e("Start","" + startPos);
+        Log.e("End","" + endPos);
+
+
+
+        for(int i = startPos; i < endPos; i++){
+            addressText.append(list[i] + "\n");
+        }*/
+
+      int addLoc = 0;
+      int licLoc = 1;
+      for(int i = 0; i < list.length; i++){
+          if(list[i].contains("Address"))
+              addLoc = i;
+          else if(addLoc != 0 && list[i].contains("License")){
+              licLoc = i;
+              break;
+          }
+      }
+
+      String[] result = new String[licLoc - addLoc - 1];
+      for (int i = addLoc+1; i < licLoc; i++)
+          result[i - addLoc - 1] = list[i];
+
+      for(int i = 0; i < result.length; i++){
+          addressText.append(result[i]);
+      }
+
+
+
+
+
+
+        for (int i = 0; i < list.length; i++) {
             if (list[i].contains("Middle") || list[i].contains("Middie") || list[i].contains("Middile") || list[i].contains("Maddle") || list[i].contains("Hiddle") || list[i].contains("Midde")) {
                 if (list[i + 1].contains("Name") || list[i + 1].contains("Mame") || list[i].contains("Namne")) {
                     String lastname = list[i + 2];
@@ -364,36 +413,36 @@ public class DriverDetails extends BaseActivity implements LocationListener {
             }
 
 
-
         }
-
-        for(int i = 0; i < list.length; i++){
-            if (list[i].contains("No.")){
-                String licenseNum = list[i+1];
-                   license.setText(licenseNum);
-            }
-            if(list[i].contains("No")){
-                String licenseNum = list[i+1];
+// letter O to number zero : not sure if working
+        for (int i = 0; i < list.length; i++) {
+            if (list[i].contains("No.")) {
+                String licenseNum = list[i + 1];
+                licenseNum.replace('O', '0');
+                licenseNum.replace('o', '0');
                 license.setText(licenseNum);
             }
-        }
+            if (list[i].contains("No")) {
+                String licenseNum = list[i + 1];
+                licenseNum.replace('O', '0');
+                licenseNum.replace('o', '0');
+                license.setText(licenseNum);
+            }
 
-        for(int i =0; i < list.length; i++){
-            if(list[i].contains("Address")){
-                String add = list[i+1];
+              /*  String add = list[i+1];
                 String sum = list[i+2];
                 String addressTxt = add + sum;
-                address.setText(addressTxt);
+                address.setText(addressTxt);*/
+
+
 
             }
-        }
+
 
 
         Log.e("char","" + myTextView.getText().toString());
 
     }
-
-
 
 
     public void summarize(View v){
@@ -402,7 +451,7 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         String nameStr = name.getText().toString();
         String genderStr = gender.getText().toString();
         String licenseStr = license.getText().toString();
-        String addStr = address.getText().toString();
+        String addStr = addressText.getText().toString();
         String huli = vioTxt.getText().toString();
         String longi = longitude.getText().toString();
         String lati = latitude.getText().toString();
