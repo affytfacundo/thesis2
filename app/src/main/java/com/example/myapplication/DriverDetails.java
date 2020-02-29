@@ -349,26 +349,10 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         }
 
         inputOCR = myTextView.getText().toString();
-        //String[] list = inputOCR.split(" ");
         String[] list = inputOCR.split("(?=\\p{Space})");
 
-       /* for(int i = 0; i < list.length; i++){
-            Log.e("Values", "" + list[i]);
-        }*/
 
-
-       /* int startPos = getIndexOfWordInArray(list, "Address") + 1;
-        int endPos = getIndexOfWordInArray(list, "License");
-
-        Log.e("Start","" + startPos);
-        Log.e("End","" + endPos);
-
-
-
-        for(int i = startPos; i < endPos; i++){
-            addressText.append(list[i] + "\n");
-        }*/
-
+//CODE FOR EXTRACTING ADDRESS
       int addLoc = 0;
       int licLoc = 1;
       for(int i = 0; i < list.length; i++){
@@ -379,7 +363,6 @@ public class DriverDetails extends BaseActivity implements LocationListener {
               break;
           }
       }
-
       String[] result = new String[licLoc - addLoc - 1];
       for (int i = addLoc+1; i < licLoc; i++)
           result[i - addLoc - 1] = list[i];
@@ -388,7 +371,7 @@ public class DriverDetails extends BaseActivity implements LocationListener {
           addressText.append(result[i]);
       }
 
-
+//END FOR ADDRESS
 
 
 
@@ -428,17 +411,7 @@ public class DriverDetails extends BaseActivity implements LocationListener {
                 licenseNum.replace('o', '0');
                 license.setText(licenseNum);
             }
-
-              /*  String add = list[i+1];
-                String sum = list[i+2];
-                String addressTxt = add + sum;
-                address.setText(addressTxt);*/
-
-
-
-            }
-
-
+        }
 
         Log.e("char","" + myTextView.getText().toString());
 
