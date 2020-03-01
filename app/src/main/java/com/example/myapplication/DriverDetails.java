@@ -27,6 +27,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +58,9 @@ public class DriverDetails extends BaseActivity implements LocationListener {
     String[] listViolations;
     boolean[] checkedViolations;
     ArrayList<Integer> driveViolation = new ArrayList<>();
+
+    RadioGroup radioGroup;
+    RadioButton radioButtonMale, radioButtonFemale;
 
     private ImageView myImageView;
     private TextView myTextView;
@@ -96,6 +101,31 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         upload = findViewById(R.id.uploadBtn);
         timedate = findViewById(R.id.timeText);
         resetinput = findViewById(R.id.resetFieldsBtn);
+
+
+
+        radioButtonMale = findViewById(R.id.maleRadio);
+        radioButtonFemale = findViewById(R.id.femaleRadio);
+        radioGroup = findViewById(R.id.radioGrp);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i){
+                    case R.id.maleRadio:
+                        gender.setText("MALE");
+                        break;
+
+                    case R.id.femaleRadio:
+                        gender.setText("FEMALE");
+                        break;
+                }
+
+            }
+        });
+
+
+
 
 
         chooseViolations = findViewById(R.id.violationsBtn);
@@ -218,6 +248,7 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         }
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -316,6 +347,7 @@ public class DriverDetails extends BaseActivity implements LocationListener {
 
 
     private void runTextRecog() {
+
         FirebaseVisionImage image = FirebaseVisionImage.fromBitmap(myBitmap);
         FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
         detector.processImage(image).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
@@ -339,6 +371,10 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         String inputOCR = null;
         name.setText(null);
         license.setText(null);
+        addressText.setText(null);
+     //   gender.setText(null);
+     //   plateNum.setText(null);
+
         myTextView.setText(null);
         if (firebaseVisionText.getTextBlocks().size() == 0) {
             myTextView.setText(R.string.no_text);
@@ -373,42 +409,71 @@ public class DriverDetails extends BaseActivity implements LocationListener {
 
 //END FOR ADDRESS
 
+        //try for changing name code
+        int midLoc = 0;
+        int nationalityLoc = 1;
+      for(int i = 0; i < list.length; i++){
+          if (list[i].contains("Middle") || list[i].contains("Middie") || list[i].contains("Middile") || list[i].contains("Maddle") || list[i].contains("Hiddle") || list[i].contains("Midde"))
+                  midLoc = i;
+
+              else if (midLoc != 0 && list[i].contains("Nationality")) {
+                  nationalityLoc = i;
+                  break;
+              }
+      }
+
+      String[] nameNew = new String[nationalityLoc - midLoc - 1];
+      for(int i = midLoc + 1; i < nationalityLoc; i++)
+          nameNew[i - midLoc - 1] = list[i];
 
 
+      String replace2 = "";
 
-        for (int i = 0; i < list.length; i++) {
+      for(int i = 1; i < nameNew.length; i++){
+          String tempName = null;
+          tempName = nameNew[i];
+          replace2 = replace2 + tempName;
+      }
+
+
+      replace2 = replace2.replaceAll("\\B0|0\\B", "O");
+      name.setText(replace2);
+
+            //end try
+
+//OLD CODE FOR NAME EXTRACT
+ /*       for (int i = 0; i < list.length; i++) {
             if (list[i].contains("Middle") || list[i].contains("Middie") || list[i].contains("Middile") || list[i].contains("Maddle") || list[i].contains("Hiddle") || list[i].contains("Midde")) {
-                if (list[i + 1].contains("Name") || list[i + 1].contains("Mame") || list[i].contains("Namne")) {
+                if (list[i + 1].contains("Name") || list[i + 1].contains("Mame") || list[i + 1].contains("Namne")) {
                     String lastname = list[i + 2];
                     String firstname = list[i + 3];
                     String midname = list[i + 4];
                     String allname = lastname + firstname + midname;
                     allname = allname.replaceAll("\\B0|0\\B", "O");
                     name.setText(allname);
-                } /*else {
+                } else {
                     String lastname = list[i + 1];
                     lastname.substring(3);
 
                     String firstname = list[i + 2];
                     String midname = list[i + 3];
                     name.setText(lastname + firstname + midname);
-                }*/
+                }
             }
+        }*/
 
-
-        }
-// letter O to number zero : not sure if working
+// letter O to number zero : not sure if working ;; yup not working yet.
         for (int i = 0; i < list.length; i++) {
             if (list[i].contains("No.")) {
                 String licenseNum = list[i + 1];
-                licenseNum.replace('O', '0');
-                licenseNum.replace('o', '0');
+                licenseNum = licenseNum.replace('O', '0');
+                licenseNum = licenseNum.replace('o', '0');
                 license.setText(licenseNum);
             }
             if (list[i].contains("No")) {
                 String licenseNum = list[i + 1];
-                licenseNum.replace('O', '0');
-                licenseNum.replace('o', '0');
+                licenseNum = licenseNum.replace('O', '0');
+                licenseNum = licenseNum.replace('o', '0');
                 license.setText(licenseNum);
             }
         }
@@ -488,5 +553,6 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         Toast.makeText(this, "Disabled provider " + provider,
                 Toast.LENGTH_SHORT).show();
     }
+
 }
 

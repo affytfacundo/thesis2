@@ -10,26 +10,51 @@
         android:id="@+id/makeTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="6dp"
         android:ems="10"
         android:hint="Make"
         android:inputType="textPersonName"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/plateNumTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGrp" />
+
+    <RadioGroup
+        android:id="@+id/radioGrp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:orientation='horizontal'
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/plateNumTxt">
+
+        <RadioButton
+            android:id="@+id/maleRadio"
+            android:layout_width="86dp"
+            android:layout_height="wrap_content"
+            android:text="MALE" />
+
+        <RadioButton
+            android:id="@+id/femaleRadio"
+            android:layout_width="103dp"
+            android:layout_height="wrap_content"
+            android:text="FEMALE" />
+
+
+    </RadioGroup>
 
     <EditText
         android:id="@+id/plateNumTxt"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:ems="10"
         android:hint="Plate No."
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gendertxt" />
+        app:layout_constraintTop_toBottomOf="@+id/addresstxt" />
 
     <ImageView
         android:id="@+id/image_view2"
@@ -62,27 +87,24 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:id="@+id/resetFieldsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="CLEAR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/makeTxt" />
+
+    <Button
         android:id="@+id/violationsBtn"
         android:layout_width="146dp"
         android:layout_height="54dp"
         android:layout_marginTop="16dp"
         android:text="PICK VIOLATIONS"
-        app:layout_constraintBottom_toTopOf="@+id/detect_textBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/resetFieldsBtn"
-        app:layout_constraintVertical_bias="0.002" />
-
-    <Button
-        android:id="@+id/resetFieldsBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="CLEAR"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/makeTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/resetFieldsBtn" />
 
     <Button
         android:id="@+id/captureImgBtn"
@@ -109,13 +131,8 @@
 
     <EditText
         android:id="@+id/nametxt"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
@@ -125,39 +142,36 @@
 
     <EditText
         android:id="@+id/licensetxt"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="6dp"
         android:ems="10"
         android:hint="License No."
         android:inputType="textPersonName"
+        android:maxLength="14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nametxt" />
 
     <EditText
         android:id="@+id/gendertxt"
-        android:layout_width="wrap_content"
+        android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:ems="10"
         android:hint="Gender"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/addresstxt"
+        app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addresstxt" />
+        app:layout_constraintTop_toBottomOf="@+id/addresstxt"
+        tools:visibility="invisible" />
 
     <EditText
         android:id="@+id/addresstxt"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
         android:ems="10"
         android:hint="Address"
         android:inputType="textPersonName"
@@ -217,8 +231,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:visibility="invisible"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,16 +28,16 @@ import java.util.Map;
 
 public class DriverSummary extends AppCompatActivity {
 
-    private static final String KEY_NAME = "Name";
-    private static final String KEY_GENDER = "Gender";
-    private static final String KEY_LICENSE = "License";
-    private static final String KEY_ADDRESS = "Address";
-    private static final String KEY_VIOLATIONS = "Violations";
-    private static final String KEY_LATITUDE = "Latitude";
-    private static final String KEY_LONGITUDE = "Longitude";
-    private static final String KEY_DATE = "Date & Time";
-    private static final String KEY_CONTROL = "Control Number";
-    private static final String KEY_PLATE = "Plate Number";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_GENDER = "gender";
+    private static final String KEY_LICENSE = "licenseNumber";
+    private static final String KEY_ADDRESS = "address";
+    private static final String KEY_VIOLATIONS = "violations";
+    private static final String KEY_LATITUDE = "latitude";
+    private static final String KEY_LONGITUDE = "longitude";
+    private static final String KEY_DATE = "dateAndTime";
+    private static final String KEY_CONTROL = "controlNumber";
+    private static final String KEY_PLATE = "plateNumber";
     private final static int SEND_SMS_PERMISSION_REQUEST_CODE = 143;
 
 
