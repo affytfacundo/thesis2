@@ -30,13 +30,12 @@
 
             <TextView
                 android:id="@+id/ctrlSum"
-                android:layout_below="@+id/ctrlText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/ctrlText"
                 android:text="Control Number"
-                android:textStyle="bold"
-                android:textSize="28sp"
-                />
+                android:textSize="22sp"
+                android:textStyle="bold" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
@@ -60,13 +59,12 @@
 
             <TextView
                 android:id="@+id/nameSum"
-                android:layout_below="@+id/nameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/nameText"
                 android:text="Name"
-                android:textStyle="bold"
-                android:textSize="28sp"
-                />
+                android:textSize="22sp"
+                android:textStyle="bold" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
@@ -90,13 +88,12 @@
 
             <TextView
                 android:id="@+id/licenseSum"
-                android:layout_below="@+id/licenseText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/licenseText"
                 android:text="License Number"
-                android:textStyle="bold"
-                android:textSize="28sp"
-                />
+                android:textSize="22sp"
+                android:textStyle="bold" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
@@ -120,13 +117,12 @@
 
             <TextView
                 android:id="@+id/datetimeSum"
-                android:layout_below="@+id/dateText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/dateText"
                 android:text="Date and Time"
-                android:textStyle="bold"
-                android:textSize="28sp"
-                />
+                android:textSize="22sp"
+                android:textStyle="bold" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
@@ -153,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/addressText"
                 android:text="Address"
-                android:textSize="28sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -182,7 +178,63 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/genderText"
                 android:text="Gender"
-                android:textSize="28sp"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layoutMake"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/makeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Make"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/makeSum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/makeText"
+                android:text="Make"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layoutPlate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/plateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plate No."
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/plateSum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/plateText"
+                android:text="Plate Number"
+                android:textSize="22sp"
                 android:textStyle="bold" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
@@ -207,13 +259,12 @@
 
             <TextView
                 android:id="@+id/latitudeSum"
-                android:layout_below="@+id/latitudeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/latitudeText"
                 android:text="Latitude"
-                android:textStyle="bold"
-                android:textSize="28sp"
-                />
+                android:textSize="22sp"
+                android:textStyle="bold" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
@@ -237,13 +288,12 @@
 
             <TextView
                 android:id="@+id/longitudeSum"
-                android:layout_below="@+id/longitudeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/longitudeText"
                 android:text="Longitude"
-                android:textStyle="bold"
-                android:textSize="28sp"
-                />
+                android:textSize="22sp"
+                android:textStyle="bold" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
@@ -267,13 +317,12 @@
 
             <TextView
                 android:id="@+id/violationSum"
-                android:layout_below="@+id/violationText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/violationText"
                 android:text="Violations"
-                android:textStyle="bold"
-                android:textSize="28sp"
-                />
+                android:textSize="22sp"
+                android:textStyle="bold" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
@@ -300,7 +349,7 @@
             android:id="@+id/phoneNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="64dp"
+            android:layout_marginBottom="40dp"
             android:ems="10"
             android:hint="0916xxxxxxx"
             android:inputType="textPersonName"

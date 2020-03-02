@@ -21,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -91,11 +92,16 @@ public class DriverDetails extends BaseActivity implements LocationListener {
 
 
         name = findViewById(R.id.nametxt);
+        name.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
         gender = findViewById(R.id.gendertxt);
+        gender.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
         license = findViewById(R.id.licensetxt);
+        license.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
         addressText = findViewById(R.id.addresstxt);
+        addressText.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
         //plate num wala pa sa driverSummary.java (no space yet)
         plateNum = findViewById(R.id.plateNumTxt);
+        plateNum.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
         //make dn wala pa sa driverSummary (no space)
         makeText = findViewById(R.id.makeTxt);
         upload = findViewById(R.id.uploadBtn);
@@ -219,6 +225,7 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         .getStringArray(R.array.makeCars));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         makeText.setAdapter(adapter);
+
 
 
 
@@ -437,7 +444,7 @@ public class DriverDetails extends BaseActivity implements LocationListener {
 
 
       replace2 = replace2.replaceAll("\\B0|0\\B", "O");
-      name.setText(replace2);
+      name.setText(replace2.toUpperCase());
 
             //end try
 
@@ -493,6 +500,8 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         String huli = vioTxt.getText().toString();
         String longi = longitude.getText().toString();
         String lati = latitude.getText().toString();
+        String plato = plateNum.getText().toString().toUpperCase();
+        String mk = makeText.getSelectedItem().toString().toUpperCase();
         i.putExtra("Name", nameStr);
         i.putExtra("Gender", genderStr);
         i.putExtra("License No.", licenseStr);
@@ -500,6 +509,8 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         i.putExtra("Violations", huli);
         i.putExtra("Latitude", lati);
         i.putExtra("Longitude", longi);
+        i.putExtra("Plate No.", plato);
+        i.putExtra("Make", mk);
         startActivity(i);
 
 

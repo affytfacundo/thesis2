@@ -38,15 +38,13 @@ public class DriverSummary extends AppCompatActivity {
     private static final String KEY_DATE = "dateAndTime";
     private static final String KEY_CONTROL = "controlNumber";
     private static final String KEY_PLATE = "plateNumber";
+    private static final String KEY_MAKE = "make";
     private final static int SEND_SMS_PERMISSION_REQUEST_CODE = 143;
 
 
     TextView phoneNumb;
-    TextView name, gender, license, address, longi, lati, date, violations, control;
-    String Stringname, Stringgender, Stringlicense, Stringaddress, Stringlongi, Stringlati, Stringdate, Stringviolations, Stringcontrol;
-   /* long maxid=0;
-    DatabaseReference reff;
-    Member member;*/
+    TextView name, gender, license, address, longi, lati, date, violations, control, make, plate;
+    String Stringname, Stringgender, Stringlicense, Stringaddress, Stringlongi, Stringlati, Stringdate, Stringviolations, Stringcontrol, Stringmake, Stringplate;
 
     private FirebaseFirestore db;
 
@@ -71,6 +69,7 @@ public class DriverSummary extends AppCompatActivity {
         String datetime = simpleDateFormat.format(calendar.getTime());
 
 
+
         name = findViewById(R.id.nameSum);
         gender = findViewById(R.id.genderSum);
         license = findViewById(R.id.licenseSum);
@@ -80,6 +79,8 @@ public class DriverSummary extends AppCompatActivity {
         date = findViewById(R.id.datetimeSum);
         violations = findViewById(R.id.violationSum);
         control = findViewById(R.id.ctrlSum);
+        make = findViewById(R.id.makeSum);
+        plate = findViewById(R.id.plateSum);
 
 
 
@@ -100,6 +101,10 @@ public class DriverSummary extends AppCompatActivity {
         violations.setText(Stringviolations);
         date.setText(datetime);
         Stringdate = date.getText().toString();
+        Stringmake = getIntent().getExtras().getString("Make");
+        make.setText(Stringmake);
+        Stringplate = getIntent().getExtras().getString("Plate No.");
+        plate.setText(Stringplate);
 
 
         String input = Stringlicense;     //input string
@@ -137,6 +142,8 @@ public class DriverSummary extends AppCompatActivity {
         note.put(KEY_LONGITUDE, Stringlongi);
         note.put(KEY_DATE, Stringdate);
         note.put(KEY_CONTROL, Stringcontrol);
+        note.put(KEY_PLATE, Stringplate);
+        note.put(KEY_MAKE, Stringmake);
 
         db.collection("drivers").document(    ).set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
