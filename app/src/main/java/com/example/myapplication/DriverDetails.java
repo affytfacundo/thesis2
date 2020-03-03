@@ -530,9 +530,6 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         i.putExtra("Enforcer", enforcergrab2);
         startActivity(i);
 
-
-
-
     }
 
 

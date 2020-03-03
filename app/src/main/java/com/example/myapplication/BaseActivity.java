@@ -50,8 +50,16 @@ public class BaseActivity extends AppCompatActivity {
                 checkPermission(WRITE_STORAGE);
                 break;
         }
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
