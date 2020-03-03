@@ -72,7 +72,7 @@ public class MyHelper {
     private static Bitmap compressPhoto(File photoFile, Bitmap bitmap) {
         try {
             FileOutputStream fOutput = new FileOutputStream(photoFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 70, fOutput);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOutput);
             fOutput.close();
         } catch (IOException exception) {
             exception.printStackTrace();

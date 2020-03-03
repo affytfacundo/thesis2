@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.InputFilter;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -475,18 +476,27 @@ public class DriverDetails extends BaseActivity implements LocationListener {
                 String licenseNum = list[i + 1];
                 licenseNum = licenseNum.replace('O', '0');
                 licenseNum = licenseNum.replace('o', '0');
-                license.setText(licenseNum);
+                license.setText(getSafeSubstring(licenseNum, 14));
             }
             if (list[i].contains("No")) {
                 String licenseNum = list[i + 1];
                 licenseNum = licenseNum.replace('O', '0');
                 licenseNum = licenseNum.replace('o', '0');
-                license.setText(licenseNum);
+                license.setText(getSafeSubstring(licenseNum, 14));
             }
         }
 
         Log.e("char","" + myTextView.getText().toString());
 
+    }
+
+    public String getSafeSubstring(String s, int maxLength){
+        if(!TextUtils.isEmpty(s)){
+            if(s.length() >= maxLength){
+                return s.substring(0, maxLength);
+            }
+        }
+        return s;
     }
 
 
