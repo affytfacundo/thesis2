@@ -39,12 +39,13 @@ public class DriverSummary extends AppCompatActivity {
     private static final String KEY_CONTROL = "controlNumber";
     private static final String KEY_PLATE = "plateNumber";
     private static final String KEY_MAKE = "make";
+    private static final String KEY_ENFORCER = "enforcer";
     private final static int SEND_SMS_PERMISSION_REQUEST_CODE = 143;
 
 
     TextView phoneNumb;
-    TextView name, gender, license, address, longi, lati, date, violations, control, make, plate;
-    String Stringname, Stringgender, Stringlicense, Stringaddress, Stringlongi, Stringlati, Stringdate, Stringviolations, Stringcontrol, Stringmake, Stringplate;
+    TextView name, gender, license, address, longi, lati, date, violations, control, make, plate, enforcercheck;
+    String Stringname, Stringgender, Stringlicense, Stringaddress, Stringlongi, Stringlati, Stringdate, Stringviolations, Stringcontrol, Stringmake, Stringplate, Stringenforcer;
 
     private FirebaseFirestore db;
 
@@ -69,7 +70,7 @@ public class DriverSummary extends AppCompatActivity {
         String datetime = simpleDateFormat.format(calendar.getTime());
 
 
-
+        enforcercheck = findViewById(R.id.enforcecheck);
         name = findViewById(R.id.nameSum);
         gender = findViewById(R.id.genderSum);
         license = findViewById(R.id.licenseSum);
@@ -105,6 +106,9 @@ public class DriverSummary extends AppCompatActivity {
         make.setText(Stringmake);
         Stringplate = getIntent().getExtras().getString("Plate No.");
         plate.setText(Stringplate);
+        Stringenforcer = getIntent().getExtras().getString("Enforcer");
+        enforcercheck.setText(Stringenforcer);
+
 
 
         String input = Stringlicense;     //input string
@@ -144,6 +148,7 @@ public class DriverSummary extends AppCompatActivity {
         note.put(KEY_CONTROL, Stringcontrol);
         note.put(KEY_PLATE, Stringplate);
         note.put(KEY_MAKE, Stringmake);
+        note.put(KEY_ENFORCER, Stringenforcer);
 
         db.collection("drivers").document(    ).set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

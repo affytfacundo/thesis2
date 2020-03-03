@@ -54,7 +54,7 @@ public class DriverDetails extends BaseActivity implements LocationListener {
     EditText name, gender, license, addressText, timedate, vioTxt, plateNum;
     Spinner makeText;
     Button upload, chooseViolations, resetinput;
-    TextView longitude, latitude;
+    TextView longitude, latitude, enforcer;
     private LocationManager locationManager;
     private String provider;
     String[] listViolations;
@@ -90,6 +90,10 @@ public class DriverDetails extends BaseActivity implements LocationListener {
 
         longitude = findViewById(R.id.longitudeText);
         latitude = findViewById(R.id.latitudeText);
+        enforcer = findViewById(R.id.enforcerTxt);
+
+        String enforcergrab = getIntent().getExtras().getString("Enforcer");
+        enforcer.setText(enforcergrab);
 
 
         name = findViewById(R.id.nametxt);
@@ -512,6 +516,8 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         String lati = latitude.getText().toString();
         String plato = plateNum.getText().toString().toUpperCase();
         String mk = makeText.getSelectedItem().toString().toUpperCase();
+        String enforcergrab2 = enforcer.getText().toString();
+
         i.putExtra("Name", nameStr);
         i.putExtra("Gender", genderStr);
         i.putExtra("License No.", licenseStr);
@@ -521,6 +527,7 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         i.putExtra("Longitude", longi);
         i.putExtra("Plate No.", plato);
         i.putExtra("Make", mk);
+        i.putExtra("Enforcer", enforcergrab2);
         startActivity(i);
 
 

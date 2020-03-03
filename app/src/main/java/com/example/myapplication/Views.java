@@ -23,6 +23,7 @@ public class Views extends AppCompatActivity {
     TextView user;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
+    String enforcer;
 
 
     @Override
@@ -41,11 +42,15 @@ public class Views extends AppCompatActivity {
         user = findViewById(R.id.emailUser);
 
         user.setText(firebaseUser.getEmail());
+        enforcer = user.getText().toString();
 
         driver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goDrive();
+
+                Intent i = new Intent(Views.this, DriverDetails.class);
+                i.putExtra("Enforcer", enforcer);
+                startActivity(i);
             }
         });
 
@@ -78,10 +83,6 @@ public class Views extends AppCompatActivity {
         ActivityCompat.finishAffinity(Views.this);
     }
 
-    private void goDrive(){
-        Intent intent = new Intent(Views.this, DriverDetails.class);
-        startActivity(intent);
-    }
 
 
     private void goScanner(){
