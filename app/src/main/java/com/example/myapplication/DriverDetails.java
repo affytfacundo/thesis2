@@ -36,6 +36,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.androidbuts.multispinnerfilter.KeyPairBoolData;
+import com.androidbuts.multispinnerfilter.MultiSpinnerSearch;
+import com.androidbuts.multispinnerfilter.SingleSpinner;
+import com.androidbuts.multispinnerfilter.SingleSpinnerSearch;
+import com.androidbuts.multispinnerfilter.SpinnerListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.vision.FirebaseVision;
@@ -47,7 +52,10 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.StringJoiner;
 
 public class DriverDetails extends BaseActivity implements LocationListener {
 
@@ -71,6 +79,7 @@ public class DriverDetails extends BaseActivity implements LocationListener {
     String currentPhotoPath;
     static final int REQUEST_TAKE_PHOTO = 1;
 
+    String get = "";
 
 
 
@@ -104,10 +113,8 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         license.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
         addressText = findViewById(R.id.addresstxt);
         addressText.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
-        //plate num wala pa sa driverSummary.java (no space yet)
         plateNum = findViewById(R.id.plateNumTxt);
         plateNum.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
-        //make dn wala pa sa driverSummary (no space)
         makeText = findViewById(R.id.makeTxt);
         upload = findViewById(R.id.uploadBtn);
         timedate = findViewById(R.id.timeText);
@@ -136,9 +143,6 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         });
 
 
-
-
-
         chooseViolations = findViewById(R.id.violationsBtn);
         vioTxt = findViewById(R.id.violationsHide);
 
@@ -153,6 +157,7 @@ public class DriverDetails extends BaseActivity implements LocationListener {
                 gender.setText("");
                 addressText.setText("");
                 plateNum.setText("");
+                vioTxt.setText("");
             }
         });
 
@@ -199,7 +204,7 @@ public class DriverDetails extends BaseActivity implements LocationListener {
                                     item = item + ", ";
                                 }
                             }
-                             vioTxt.setText(item);
+                             vioTxt.setText(item.toUpperCase());
                     }
                 });
 
@@ -231,6 +236,69 @@ public class DriverDetails extends BaseActivity implements LocationListener {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         makeText.setAdapter(adapter);
 
+
+        /*final List<String> list2 = Arrays.asList(getResources().getStringArray(R.array.violations));
+        final List<KeyPairBoolData> listArray0 = new ArrayList<>();
+
+        for (int i = 0; i < list2.size(); i++) {
+            KeyPairBoolData h = new KeyPairBoolData();
+            h.setId(i + 1);
+            h.setName(list2.get(i));
+            h.setSelected(false);
+            listArray0.add(h);
+        }
+
+        final List<KeyPairBoolData> listArray1 = new ArrayList<>();
+
+        for (int i = 0; i < list2.size(); i++) {
+            KeyPairBoolData h = new KeyPairBoolData();
+            h.setId(i + 1);
+            h.setName(list2.get(i));
+            h.setSelected(false);
+            listArray1.add(h);
+        }
+
+        final List<KeyPairBoolData> listArray2 = new ArrayList<>();
+
+        for (int i = 0; i < list2.size(); i++) {
+            KeyPairBoolData h = new KeyPairBoolData();
+            h.setId(i + 1);
+            h.setName(list2.get(i));
+            h.setSelected(false);
+            listArray2.add(h);
+        }
+        final List<KeyPairBoolData> listArray3 = new ArrayList<>();
+
+        for (int i = 0; i < list2.size(); i++) {
+            KeyPairBoolData h = new KeyPairBoolData();
+            h.setId(i + 1);
+            h.setName(list2.get(i));
+            h.setSelected(false);
+            listArray3.add(h);
+        }
+
+        MultiSpinnerSearch searchMultiSpinnerUnlimited = (MultiSpinnerSearch) findViewById(R.id.searchMultiSpinner);
+        //MultiSpinnerSearch searchMultiSpinnerLimit = (MultiSpinnerSearch) findViewById(R.id.searchMultiSpinnerLimit);
+       // SingleSpinnerSearch searchSingleSpinner = (SingleSpinnerSearch) findViewById(R.id.searchSingleSpinner);
+        //SingleSpinner singleSpinner = (SingleSpinner) findViewById(R.id.singleSpinner);
+
+        searchMultiSpinnerUnlimited.setEmptyTitle("No Data Found!");
+        searchMultiSpinnerUnlimited.setSearchHint("Find Data");
+
+        searchMultiSpinnerUnlimited.setItems(listArray0, -1, new SpinnerListener() {
+
+            @Override
+            public void onItemsSelected(List<KeyPairBoolData> items) {
+
+                for (int i = 0; i < items.size(); i++) {
+                    if (items.get(i).isSelected()) {
+                        Log.e("wow", "" + items.get(i).getName() + " : " + items.get(i).isSelected());
+                        vioTxt.append(items.get(i).getName().toUpperCase() + ", ");
+
+                    }
+                }
+            }
+        });*/
 
 
 

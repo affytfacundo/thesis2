@@ -3,12 +3,89 @@
     <string name="areacode">+63</string>
 
     <string-array name="violations">
-        <item>Overspeeding</item>
-        <item>Illegal Parking</item>
-        <item>Obstruction</item>
-        <item>Drinking and Driving</item>
-        <item>Beating Red Light</item>
-        <item></item>
+        <item>Any Violation of General Driving Rules</item>
+        <item>Careless Driving</item>
+        <item>Disobedience of Official Traffic Control Signal</item>
+        <item>Disobedience of Official Traffic Road or Pavement Markings</item>
+        <item>Disobedience of Official Traffic Signals and Instructions</item>
+        <item>Disobedience of Official Traffic Signs</item>
+        <item>Display of Dazzling Lights</item>
+        <item>Driving a Motor Vehicle while under influence of Liquor or Incapacitating Drugs</item>
+        <item>Driving Through Funeral or Other Processions</item>
+        <item>Erection and Interference with Traffic Control Items</item>
+        <item>Exceeding Gross Weight, Axle and Weight Loads</item>
+        <item>Following Fire Vehicles</item>
+        <item>Improper Method of Parking Vehicles</item>
+        <item>Improper Movement to or from Parking Area</item>
+        <item>Improper Opening Doors and Alighting from Vehicles</item>
+        <item>Improper Turning, Reversing, and Stopping</item>
+        <item>Improper Use of Horns, etc</item>
+        <item>Installing, mounting, fitting engine not according to locally-approved standards</item>
+        <item>Loading/unloading at Loading Zone without the presence of driver</item>
+        <item>Loading/unloading of passengers in private garage</item>
+        <item>Loading/unloading of passengers of PUJ in undesignated zone</item>
+        <item>Loads not Properly Secured</item>
+        <item>Modification on Muffler on Motorcycle</item>
+        <item>Movement of Trailers, Trucks, or any Approved Transportation Medium Linked to a Container Van</item>
+        <item>No permit to Move Equipment and/or Load of Excessive Weight, Width, or Height</item>
+        <item>No PUV-Drivers Identification Card</item>
+        <item>No shop Registration</item>
+        <item>Non reporting of manufactured/fabricated PUV</item>
+        <item>Non-embedding the PCCN by the owner/operator of shop</item>
+        <item>Non-payment of Parking fees</item>
+        <item>Non-payment of Supervision Fee</item>
+        <item>Non-production of LTO-issued Drivers License</item>
+        <item>Non-production of Vehicle Registration Document</item>
+        <item>Non-Stopping at Special Stops</item>
+        <item>Non-turning on the headlight while driving along city roads and highways</item>
+        <item>Non-wearing and/or no safety helmet for motorcyclist</item>
+        <item>Not Giving to Emergency Vehicles</item>
+        <item>Not Giving Way at Intersection</item>
+        <item>Not Giving Way at Roundabouts or Rotundas</item>
+        <item>Not Giving Way During Turns</item>
+        <item>Obstructing Roads or Sidewalks by Person, Motor vehicles, including stalled Vehicles</item>
+        <item>Obstruction to Drivers View or Driving Mechanism</item>
+        <item>Opening Doors and Alighting from Public Utility Bus</item>
+        <item>Operating a Bicycle and Animal-drawn Carriage on Public Roads</item>
+        <item>Operating Animal-drawn Carriages, and Bicycles that are not Licensed</item>
+        <item>Operating without approved traffic impact assessment</item>
+        <item>Owner/driver with no PCCN on the fabricated/manufacture body of the MTH</item>
+        <item>Owner/driver with no PCCN on the fabricated/manufacture body of the Pedicab</item>
+        <item>Owner/driver with no PCCN on the fabricated/manufacture body of the PUJ</item>
+        <item>Parking during Certain Hours Prohibited</item>
+        <item>Parking for Certain Purpose Prohibited</item>
+        <item>Parking Near Grade or Curve</item>
+        <item>Parking on Parade Routes and on Any Special Occasion</item>
+        <item>Parking, Waiting, or Standing in Prohibited Area</item>
+        <item>Passing of Vehicles over Five Tons on Subdivision Road Already Converted to City Street</item>
+        <item>Private Garage for Vehicles-for-Hire without permit</item>
+        <item>Projecting Loads on Passenger Vehicles</item>
+        <item>Public Transport Utility Vehicle with more than Eighteen Passengers passing Secondary Streets</item>
+        <item>PUV not fabricated/manufactured without inspection</item>
+        <item>PUV not in accordance with approved standards</item>
+        <item>Reckless and Dangerous Driving</item>
+        <item>Refusal to have Vehicles Weighed and/or Remove Excess Load</item>
+        <item>Releasing the vehicle without inspection</item>
+        <item>Truck Ban, Non-Complying Buses and Jeepneys</item>
+        <item>Unlawful Restriction on road access</item>
+        <item>Violating Operating Rule on One-way Streets</item>
+        <item>Violating Operation of Public Utility Jeepneys</item>
+        <item>Violating Operation of Student Carpool Transport Service</item>
+        <item>Violating Passenger/Cargo of Motorcyclist</item>
+        <item>Violating Requirement of Transport/Traffic Impact Assessment</item>
+        <item>Violating Restrictions of Animals and Livestock on Roads</item>
+        <item>Violating Speed Limits</item>
+        <item>Violating Standard of Improvised Mud-guard</item>
+        <item>Violation of non-compliance regarding security guards, CCTV, facilities, etc</item>
+        <item>Violation of off-street public utility van transport terminal</item>
+        <item>Violation of Operating Conditions of Motorized Tricycle-for-hire</item>
+        <item>Violation of Procedure Involving Traffic Incidents</item>
+        <item>Violation of restriction or limits in the use of bridge</item>
+        <item>Violation or non-compliance with any section of Article XIX regarding seatbelt</item>
+        <item>Violation or non-compliance with any Section of Article XVIII regarding lighting, warning signs, equipment, etc</item>
+        <item>Violations in Public Pay Parking Area</item>
+
+
     </string-array>
 
     <string-array name="pedestrianviolations">

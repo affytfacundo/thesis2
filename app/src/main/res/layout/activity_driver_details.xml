@@ -90,21 +90,38 @@
         android:id="@+id/resetFieldsBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="CLEAR"
+        app:layout_constraintBottom_toTopOf="@+id/enforcerTxt"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/makeTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/searchMultiSpinner"
+        app:layout_constraintVertical_bias="0.377" />
 
     <Button
         android:id="@+id/violationsBtn"
         android:layout_width="146dp"
         android:layout_height="54dp"
-        android:layout_marginTop="16dp"
         android:text="PICK VIOLATIONS"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/resetFieldsBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/resetFieldsBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/makeTxt"
+        app:layout_constraintVertical_bias="0.87" />
+
+    <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
+        android:id="@+id/searchMultiSpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/makeTxt">
+
+
+    </com.androidbuts.multispinnerfilter.MultiSpinnerSearch>
 
     <Button
         android:id="@+id/captureImgBtn"
@@ -220,7 +237,6 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
